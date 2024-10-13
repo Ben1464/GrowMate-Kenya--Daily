@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import { PDFDownloadLink, Page, Text, Document, StyleSheet } from '@react-pdf/renderer';
+import { PDFDownloadLink, Page, Text, Document, StyleSheet, View } from '@react-pdf/renderer';
 import './App.css';
 
 // Define Categories, Products, Pack Sizes, and Units
@@ -41,8 +41,10 @@ const generateInitialSales = () => {
     Object.keys(categories[category]).forEach((product) => {
       const { packSizes } = categories[category][product];
       packSizes.forEach((size) => {
-        const key = `sales_${category}_${product}_${size}`;
-        sales[key] = ''; // Set initial value to an empty string
+        const keyQuantity = `sales_${category}_${product}_${size}_quantity`;
+        const keyPrice = `sales_${category}_${product}_${size}_price`;
+        sales[keyQuantity] = ''; // Set initial value for quantity to an empty string
+        sales[keyPrice] = ''; // Set initial value for price to an empty string
       });
     });
   });
@@ -57,71 +59,106 @@ const ReportSchema = Yup.object().shape({
   competitiveAnalysis: Yup.string().required('Competitive Analysis is required'),
   issues: Yup.string().required('Issues and Challenges are required'),
   upcomingActions: Yup.string().required('Upcoming Actions are required'),
-  // Make sales fields optional, only validate if a value is provided
   ...Object.keys(categories).reduce((acc, category) => {
     Object.keys(categories[category]).forEach((product) => {
       categories[category][product].packSizes.forEach((size) => {
-        const key = `sales_${category}_${product}_${size}`;
-        acc[key] = Yup.number()
+        const keyQuantity = `sales_${category}_${product}_${size}_quantity`;
+        const keyPrice = `sales_${category}_${product}_${size}_price`;
+        acc[keyQuantity] = Yup.number()
           .typeError('Must be a number')
-          .nullable(); // Allow empty fields
+          .nullable();
+        acc[keyPrice] = Yup.number()
+          .typeError('Must be a number')
+          .nullable();
       });
     });
     return acc;
   }, {}),
 });
 
+// Helper function to format numbers as currency
+const formatCurrency = (value) => {
+  return value.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+};
+
 // PDF component
-const ReportPDF = ({ values }) => (
-  <Document>
-    <Page style={styles.body}>
-      <Text style={styles.header}>Date: {values.date}</Text>
-      <Text style={styles.header}>Report Author: {values.author}</Text>
+const ReportPDF = ({ values }) => {
+  const salesRows = [];
+  Object.keys(categories).forEach((category) => {
+    Object.keys(categories[category]).forEach((product) => {
+      categories[category][product].packSizes.forEach((size) => {
+        const keyQuantity = `sales_${category}_${product}_${size}_quantity`;
+        const keyPrice = `sales_${category}_${product}_${size}_price`;
+        if (values[keyQuantity]) {
+          const total = (parseFloat(values[keyQuantity]) || 0) * (parseFloat(values[keyPrice]) || 0);
+          salesRows.push({
+            category,
+            product,
+            size,
+            quantity: values[keyQuantity],
+            price: formatCurrency(parseFloat(values[keyPrice])),
+            unit: categories[category][product].unit,
+            total: formatCurrency(total), // Format total as currency
+          });
+        }
+      });
+    });
+  });
 
-      <Text style={styles.section}>Sales Summary</Text>
-      <Text>Total Sales: {values.totalSales}</Text>
+  return (
+    <Document>
+      <Page style={styles.body}>
+        <Text style={styles.header}>Daily Sales Report</Text>
+        <Text style={styles.header}>Date: {values.date}</Text>
+        <Text style={styles.header}>Staff: {values.author}</Text>
 
-      {/* Detailed Sales per Product per Pack Size */}
-      <Text style={styles.section}>Detailed Sales per Product</Text>
-      {Object.keys(categories).map((category) => (
-        <React.Fragment key={category}>
-          <Text style={styles.subSection}>{category}</Text>
-          {Object.keys(categories[category]).map((product) => (
-            <React.Fragment key={product}>
-              <Text style={styles.productTitle}>{product} ({categories[category][product].unit})</Text>
-              {categories[category][product].packSizes.map((size) => {
-                const key = `sales_${category}_${product}_${size}`;
-                return values[key] ? ( // Only show non-empty sales
-                  <Text key={key} style={styles.packSizeText}>
-                    {size}: {values[key]}
-                  </Text>
-                ) : null;
-              })}
-            </React.Fragment>
+        <Text style={styles.section}>Sales Summary</Text>
+        <Text>Total Sales: {formatCurrency(values.totalSales)}</Text> {/* Format total sales as currency */}
+
+        <Text style={styles.section}>Detailed Sales per Product</Text>
+        <View style={styles.table}>
+          <View style={styles.tableRow}>
+            <Text style={[styles.tableCell, styles.headerCell]}>Category</Text>
+            <Text style={[styles.tableCell, styles.headerCell]}>Product</Text>
+            <Text style={[styles.tableCell, styles.headerCell]}>Size</Text>
+            <Text style={[styles.tableCell, styles.headerCell]}>Quantity</Text>
+            <Text style={[styles.tableCell, styles.headerCell]}>Price</Text>
+            <Text style={[styles.tableCell, styles.headerCell]}>Total</Text>
+          </View>
+          {salesRows.map((row, index) => (
+            <View style={styles.tableRow} key={index}>
+              <Text style={styles.tableCell}>{row.category}</Text>
+              <Text style={styles.tableCell}>{row.product}</Text>
+              <Text style={styles.tableCell}>{row.size} ({row.unit})</Text>
+              <Text style={styles.tableCell}>{row.quantity}</Text>
+              <Text style={styles.tableCell}>{row.price}</Text>
+              <Text style={styles.tableCell}>{row.total}</Text>
+            </View>
           ))}
-        </React.Fragment>
-      ))}
+        </View>
 
-      <Text style={styles.section}>Marketing Activities</Text>
-      <Text>{values.marketingActivities}</Text>
-      <Text style={styles.section}>Competitive Analysis</Text>
-      <Text>{values.competitiveAnalysis}</Text>
-      <Text style={styles.section}>Issues and Challenges</Text>
-      <Text>{values.issues}</Text>
-      <Text style={styles.section}>Upcoming Actions</Text>
-      <Text>{values.upcomingActions}</Text>
-    </Page>
-  </Document>
-);
+        <Text style={styles.section}>Marketing Activities</Text>
+        <Text>{values.marketingActivities}</Text>
+        <Text style={styles.section}>Competitive Analysis</Text>
+        <Text>{values.competitiveAnalysis}</Text>
+        <Text style={styles.section}>Issues and Challenges</Text>
+        <Text>{values.issues}</Text>
+        <Text style={styles.section}>Upcoming Actions</Text>
+        <Text>{values.upcomingActions}</Text>
+      </Page>
+    </Document>
+  );
+};
 
 // PDF Styles
 const styles = StyleSheet.create({
   body: { padding: 10 },
   header: { fontSize: 18, marginBottom: 10 },
   section: { fontSize: 16, marginTop: 10, marginBottom: 5 },
-  subSection: { fontSize: 14, marginTop: 5, marginBottom: 3, marginLeft: 10 },
-  productTitle: { fontSize: 13, marginTop: 3, marginBottom: 2, marginLeft: 20 },
-  packSizeText: { fontSize: 12, marginLeft: 30, marginBottom: 1 },
+  table: { display: 'table', width: 'auto', marginTop: 10 },
+  tableRow: { flexDirection: 'row', borderBottomWidth: 1, borderBottomColor: '#000' },
+  tableCell: { padding: 5, width: '16.66%' }, // Adjusted width for the new columns
+  headerCell: { fontWeight: 'bold', backgroundColor: '#f2f2f2' },
 });
 
 const DailyReportApp = () => {
@@ -133,9 +170,11 @@ const DailyReportApp = () => {
     Object.keys(categories).forEach((category) => {
       Object.keys(categories[category]).forEach((product) => {
         categories[category][product].packSizes.forEach((size) => {
-          const key = `sales_${category}_${product}_${size}`;
-          const value = parseFloat(values[key]) || 0; // Use 0 if NaN or empty
-          total += value;
+          const keyQuantity = `sales_${category}_${product}_${size}_quantity`;
+          const keyPrice = `sales_${category}_${product}_${size}_price`;
+          const quantity = parseFloat(values[keyQuantity]) || 0;
+          const price = parseFloat(values[keyPrice]) || 0;
+          total += quantity * price;
         });
       });
     });
@@ -143,13 +182,12 @@ const DailyReportApp = () => {
   };
 
   return (
-    <div className="container">
-      <h1>Growmate Daily Report</h1>
+    <div className="App">
+      <h1>Daily Sales Report</h1>
       <Formik
         initialValues={{
           date: '',
           author: '',
-          totalSales: '',
           marketingActivities: '',
           competitiveAnalysis: '',
           issues: '',
@@ -158,105 +196,88 @@ const DailyReportApp = () => {
         }}
         validationSchema={ReportSchema}
         onSubmit={(values) => {
-          const calculatedTotalSales = calculateTotalSales(values);
-          setReportData({ ...values, totalSales: calculatedTotalSales });
+          values.totalSales = calculateTotalSales(values); // Calculate and store total sales
+          setReportData(values); // Set the report data to generate PDF
         }}
       >
-        {({ isSubmitting, values, setFieldValue }) => {
-          const handleSalesChange = (category, product, size, value) => {
-            const key = `sales_${category}_${product}_${size}`;
-            setFieldValue(key, value);
-            const newValues = { ...values, [key]: value }; // Create a new values object
-            const total = calculateTotalSales(newValues);
-            setFieldValue('totalSales', total); // Update total sales
-          };
-
-          return (
-            <Form>
-              {/* Existing Form Fields */}
-              <div>
-                <label>Date</label>
-                <Field name="date" type="date" />
-                <ErrorMessage name="date" component="div" className="error" />
-              </div>
-
-              <div>
-                <label>Staff Name</label>
-                <Field name="author" type="text" />
-                <ErrorMessage name="author" component="div" className="error" />
-              </div>
-
-              <div>
-                <label>Total Sales</label>
-                <Field name="totalSales" type="number" readOnly />
-                <ErrorMessage name="totalSales" component="div" className="error" />
-              </div>
-
-              {/* New Dynamic Sales Fields */}
-              <div>
-                {Object.keys(categories).map((category) => (
-                  <div key={category}>
-                    <h3>{category}</h3>
-                    {Object.keys(categories[category]).map((product) => (
-                      <div key={product}>
-                        <h4>{product}</h4>
-                        {categories[category][product].packSizes.map((size) => (
-                          <div key={size}>
-                            <label>
-                              {size} ({categories[category][product].unit})
-                            </label>
-                            <Field
-                              name={`sales_${category}_${product}_${size}`}
-                              type="number"
-                              onChange={(e) => handleSalesChange(category, product, size, e.target.value)}
-                            />
-                            <ErrorMessage name={`sales_${category}_${product}_${size}`} component="div" className="error" />
-                          </div>
-                        ))}
+        {({ values }) => (
+          <Form>
+            <div>
+              <label htmlFor="date">Date:</label>
+              <Field type="date" id="date" name="date" />
+              <ErrorMessage name="date" component="div" className="error" />
+            </div>
+            <div>
+              <label htmlFor="author">Staff Name:</label>
+              <Field type="text" id="author" name="author" />
+              <ErrorMessage name="author" component="div" className="error" />
+            </div>
+            
+            {/* Render dynamic fields for sales data */}
+            {Object.keys(categories).map((category) => (
+              <div key={category}>
+                <h2>{category}</h2>
+                {Object.keys(categories[category]).map((product) => (
+                  <div key={product}>
+                    <h3>{product}</h3>
+                    {categories[category][product].packSizes.map((size) => (
+                      <div key={size}>
+                        <label>
+                          {size} ({categories[category][product].unit}) Quantity:
+                          <Field
+                            type="number"
+                            name={`sales_${category}_${product}_${size}_quantity`}
+                            placeholder={`Enter quantity for ${size}`}
+                          />
+                          Price:
+                          <Field
+                            type="number"
+                            name={`sales_${category}_${product}_${size}_price`}
+                            placeholder={`Enter price for ${size}`}
+                          />
+                        </label>
                       </div>
                     ))}
                   </div>
                 ))}
               </div>
+            ))}
 
-              <div>
-                <label>Marketing Activities</label>
-                <Field name="marketingActivities" as="textarea" />
-                <ErrorMessage name="marketingActivities" component="div" className="error" />
-              </div>
+            {/* Additional sections for report */}
+            <div>
+              <label htmlFor="marketingActivities">Marketing Activities:</label>
+              <Field as="textarea" id="marketingActivities" name="marketingActivities" />
+              <ErrorMessage name="marketingActivities" component="div" className="error" />
+            </div>
+            <div>
+              <label htmlFor="competitiveAnalysis">Competitive Analysis:</label>
+              <Field as="textarea" id="competitiveAnalysis" name="competitiveAnalysis" />
+              <ErrorMessage name="competitiveAnalysis" component="div" className="error" />
+            </div>
+            <div>
+              <label htmlFor="issues">Issues and Challenges:</label>
+              <Field as="textarea" id="issues" name="issues" />
+              <ErrorMessage name="issues" component="div" className="error" />
+            </div>
+            <div>
+              <label htmlFor="upcomingActions">Upcoming Actions:</label>
+              <Field as="textarea" id="upcomingActions" name="upcomingActions" />
+              <ErrorMessage name="upcomingActions" component="div" className="error" />
+            </div>
 
-              <div>
-                <label>Competitive Analysis</label>
-                <Field name="competitiveAnalysis" as="textarea" />
-                <ErrorMessage name="competitiveAnalysis" component="div" className="error" />
-              </div>
-
-              <div>
-                <label>Issues and Challenges</label>
-                <Field name="issues" as="textarea" />
-                <ErrorMessage name="issues" component="div" className="error" />
-              </div>
-
-              <div>
-                <label>Upcoming Actions</label>
-                <Field name="upcomingActions" as="textarea" />
-                <ErrorMessage name="upcomingActions" component="div" className="error" />
-              </div>
-
-              <button type="submit" disabled={isSubmitting}>
-                Generate PDF
-              </button>
-            </Form>
-          );
-        }}
+            <button type="submit">Generate Report</button>
+          </Form>
+        )}
       </Formik>
 
+      {/* Render the PDF Download Link if report data is available */}
       {reportData && (
-        <div className="pdf-link">
-          <PDFDownloadLink document={<ReportPDF values={reportData} />} fileName="daily-report.pdf">
-            {({ loading }) => (loading ? 'Generating PDF...' : 'Download PDF')}
-          </PDFDownloadLink>
-        </div>
+        <PDFDownloadLink
+          document={<ReportPDF values={reportData} />}
+          fileName="daily_sales_report.pdf"
+        >
+          {({ loading }) => (loading ? 'Generating PDF...' : 'Download Report as PDF')}
+        </PDFDownloadLink>
       )}
     </div>
   );
