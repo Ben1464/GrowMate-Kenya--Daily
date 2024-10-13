@@ -228,13 +228,13 @@ const DailyReportApp = () => {
                           <Field
                             type="number"
                             name={`sales_${category}_${product}_${size}_quantity`}
-                            placeholder={`Enter quantity for ${size}`}
+                            // placeholder={`Enter quantity for ${size}`}
                           />
                           Price:
                           <Field
                             type="number"
                             name={`sales_${category}_${product}_${size}_price`}
-                            placeholder={`Enter price for ${size}`}
+                            // placeholder={`Enter price for ${size}`}
                           />
                         </label>
                       </div>
