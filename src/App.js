@@ -7,7 +7,7 @@ import './App.css';
 // Define Categories, Products, Pack Sizes, and Units
 const categories = {
   Insecticides: {
-    Growpride: { unit: 'gms', packSizes: [5, 10, 25, 50, 100, '1kg'] },
+    Growprid: { unit: 'gms', packSizes: [5, 10, 25, 50, 100, '1kg'] },
     Timecarb: { unit: 'mls', packSizes: [25, 50, 100, 250, '1ltr'] },
     Spirometer: { unit: 'mls', packSizes: [50, 100, 250, '1ltr'] },
     Emargurd: { unit: 'mls', packSizes: [25, 50, 100, 250, '1ltr'] },
