@@ -10,7 +10,7 @@ const categories = {
     Growprid: { unit: 'gms', packSizes: [5, 10, 25, 50, 100, '1kg'] },
     Timecarb: { unit: 'mls', packSizes: [25, 50, 100, 250, '1ltr'] },
     Spirometer: { unit: 'mls', packSizes: [50, 100, 250, '1ltr'] },
-    Emargurd: { unit: 'mls', packSizes: [25, 50, 100, 250, '1ltr'] },
+    Emagurd: { unit: 'mls', packSizes: [25, 50, 100, 250, '1ltr'] },
   },
   Fungicides: {
     Pyraccop: { unit: 'mls', packSizes: [50, 100, 250, '1ltr'] },
@@ -77,9 +77,11 @@ const ReportSchema = Yup.object().shape({
 });
 
 // Helper function to format numbers as currency
+// Helper function to format numbers as currency for total sales
 const formatCurrency = (value) => {
   return value.toLocaleString('en-US', { style: 'currency', currency: 'Ksh' });
 };
+
 
 
 // PDF component
@@ -97,10 +99,11 @@ const ReportPDF = ({ values }) => {
             product,
             size,
             quantity: values[keyQuantity],
-            price: formatCurrency(parseFloat(values[keyPrice])),
+            price: parseFloat(values[keyPrice]), // Use raw number for price without formatting
             unit: categories[category][product].unit,
             total: formatCurrency(total), // Format total as currency
           });
+          
         }
       });
     });
@@ -114,7 +117,7 @@ const ReportPDF = ({ values }) => {
         <Text style={styles.header}>Staff: {values.author}</Text>
 
         <Text style={styles.section}>Sales Summary</Text>
-        <Text>Total Sales: {formatCurrency(values.totalSales)}</Text> {/* Format total sales as currency */}
+        <Text>Total Sales:{formatCurrency(values.totalSales)}</Text> {/* Format total sales as currency */}
 
         <Text style={styles.section}>Detailed Sales per Product</Text>
         <View style={styles.table}>
