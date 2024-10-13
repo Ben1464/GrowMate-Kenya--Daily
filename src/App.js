@@ -42,7 +42,7 @@ const generateInitialSales = () => {
       const { packSizes } = categories[category][product];
       packSizes.forEach((size) => {
         const key = `sales_${category}_${product}_${size}`;
-        sales[key] = '';
+        sales[key] = ''; // Set initial value to an empty string
       });
     });
   });
@@ -53,21 +53,18 @@ const generateInitialSales = () => {
 const ReportSchema = Yup.object().shape({
   date: Yup.string().required('Required'),
   author: Yup.string().required('Required'),
-  totalSales: Yup.number()
-    .typeError('Must be a number')
-    .required('Total Sales is required'),
   marketingActivities: Yup.string().required('Marketing Activities are required'),
   competitiveAnalysis: Yup.string().required('Competitive Analysis is required'),
   issues: Yup.string().required('Issues and Challenges are required'),
   upcomingActions: Yup.string().required('Upcoming Actions are required'),
-  // Dynamically add validations for each product's pack size sales
+  // Make sales fields optional, only validate if a value is provided
   ...Object.keys(categories).reduce((acc, category) => {
     Object.keys(categories[category]).forEach((product) => {
       categories[category][product].packSizes.forEach((size) => {
         const key = `sales_${category}_${product}_${size}`;
         acc[key] = Yup.number()
           .typeError('Must be a number')
-          .required(`Sales for ${product} (${size} ${categories[category][product].unit}) is required`);
+          .nullable(); // Allow empty fields
       });
     });
     return acc;
@@ -94,11 +91,11 @@ const ReportPDF = ({ values }) => (
               <Text style={styles.productTitle}>{product} ({categories[category][product].unit})</Text>
               {categories[category][product].packSizes.map((size) => {
                 const key = `sales_${category}_${product}_${size}`;
-                return (
+                return values[key] ? ( // Only show non-empty sales
                   <Text key={key} style={styles.packSizeText}>
                     {size}: {values[key]}
                   </Text>
-                );
+                ) : null;
               })}
             </React.Fragment>
           ))}
@@ -130,14 +127,14 @@ const styles = StyleSheet.create({
 const DailyReportApp = () => {
   const [reportData, setReportData] = useState(null);
 
-  // Function to calculate total sales
+  // Function to calculate total sales only for non-empty fields
   const calculateTotalSales = (values) => {
     let total = 0;
     Object.keys(categories).forEach((category) => {
       Object.keys(categories[category]).forEach((product) => {
         categories[category][product].packSizes.forEach((size) => {
           const key = `sales_${category}_${product}_${size}`;
-          const value = parseFloat(values[key]) || 0; // Use 0 if NaN
+          const value = parseFloat(values[key]) || 0; // Use 0 if NaN or empty
           total += value;
         });
       });
@@ -224,41 +221,43 @@ const DailyReportApp = () => {
 
               <div>
                 <label>Marketing Activities</label>
-                <Field as="textarea" name="marketingActivities" />
+                <Field name="marketingActivities" as="textarea" />
                 <ErrorMessage name="marketingActivities" component="div" className="error" />
               </div>
 
               <div>
                 <label>Competitive Analysis</label>
-                <Field as="textarea" name="competitiveAnalysis" />
+                <Field name="competitiveAnalysis" as="textarea" />
                 <ErrorMessage name="competitiveAnalysis" component="div" className="error" />
               </div>
 
               <div>
                 <label>Issues and Challenges</label>
-                <Field as="textarea" name="issues" />
+                <Field name="issues" as="textarea" />
                 <ErrorMessage name="issues" component="div" className="error" />
               </div>
 
               <div>
                 <label>Upcoming Actions</label>
-                <Field as="textarea" name="upcomingActions" />
+                <Field name="upcomingActions" as="textarea" />
                 <ErrorMessage name="upcomingActions" component="div" className="error" />
               </div>
 
               <button type="submit" disabled={isSubmitting}>
-                Submit
+                Generate PDF
               </button>
-
-              {reportData && (
-                <PDFDownloadLink document={<ReportPDF values={reportData} />} fileName="daily-report.pdf">
-                  {({ loading }) => (loading ? 'Loading document...' : 'Download Report')}
-                </PDFDownloadLink>
-              )}
             </Form>
           );
         }}
       </Formik>
+
+      {reportData && (
+        <div className="pdf-link">
+          <PDFDownloadLink document={<ReportPDF values={reportData} />} fileName="daily-report.pdf">
+            {({ loading }) => (loading ? 'Generating PDF...' : 'Download PDF')}
+          </PDFDownloadLink>
+        </div>
+      )}
     </div>
   );
 };
