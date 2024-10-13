@@ -78,8 +78,9 @@ const ReportSchema = Yup.object().shape({
 
 // Helper function to format numbers as currency
 const formatCurrency = (value) => {
-  return value.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+  return value.toLocaleString('en-US', { style: 'currency', currency: 'Ksh' });
 };
+
 
 // PDF component
 const ReportPDF = ({ values }) => {
