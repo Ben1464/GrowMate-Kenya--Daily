@@ -29,7 +29,7 @@ const categories = {
     Polysil: { unit: 'mls', packSizes: [25, 50, 100, 250, '1ltr'] },
   },
   Herbicides: {
-    MIne_posat: { unit: 'mls', packSizes: [500, '1ltr'] },
+    Mineposat: { unit: 'mls', packSizes: [500, '1ltr'] },
     Bentagrow: { unit: 'mls', packSizes: [500, '1ltr'] },
   },
 };
@@ -213,7 +213,7 @@ const DailyReportApp = () => {
             </div>
             <div className="form-section">
               <label>Competitive Analysis:</label>
-              <Field type="text" name="competitiveAnalysis" placeholder="Brief description of what competitors activities.." />
+              <Field type="text" name="competitiveAnalysis" placeholder="A brief description of competitors activities.." />
               <ErrorMessage name="competitiveAnalysis" component="div" className="error" />
             </div>
             <div className="form-section">
