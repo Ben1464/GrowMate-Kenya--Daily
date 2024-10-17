@@ -202,7 +202,7 @@ const DailyReportApp = () => {
               <ErrorMessage name="date" component="div" className="error" />
             </div>
             <div className="form-section">
-              <label>Author:</label>
+              <label>Staff Name:</label>
               <Field type="text" name="author" placeholder="Enter your name" />
               <ErrorMessage name="author" component="div" className="error" />
             </div>
@@ -213,17 +213,17 @@ const DailyReportApp = () => {
             </div>
             <div className="form-section">
               <label>Competitive Analysis:</label>
-              <Field type="text" name="competitiveAnalysis" placeholder="Analyze competitors" />
+              <Field type="text" name="competitiveAnalysis" placeholder="Brief description of what competitors activities.." />
               <ErrorMessage name="competitiveAnalysis" component="div" className="error" />
             </div>
             <div className="form-section">
               <label>Issues and Challenges:</label>
-              <Field type="text" name="issues" placeholder="List any issues" />
+              <Field type="text" name="issues" placeholder="List issues and challenges.." />
               <ErrorMessage name="issues" component="div" className="error" />
             </div>
             <div className="form-section">
               <label>Upcoming Actions:</label>
-              <Field type="text" name="upcomingActions" placeholder="Outline actions" />
+              <Field type="text" name="upcomingActions" placeholder="Today's actions/plan.." />
               <ErrorMessage name="upcomingActions" component="div" className="error" />
             </div>
 
