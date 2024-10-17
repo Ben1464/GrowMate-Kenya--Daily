@@ -34,17 +34,15 @@ const categories = {
   },
 };
 
-// Function to generate initial sales values dynamically based on categories
+// Generate initial sales values dynamically based on categories
 const generateInitialSales = () => {
   const sales = {};
   Object.keys(categories).forEach((category) => {
     Object.keys(categories[category]).forEach((product) => {
       const { packSizes } = categories[category][product];
       packSizes.forEach((size) => {
-        const keyQuantity = `sales_${category}_${product}_${size}_quantity`;
-        const keyPrice = `sales_${category}_${product}_${size}_price`;
-        sales[keyQuantity] = ''; // Set initial value for quantity to an empty string
-        sales[keyPrice] = ''; // Set initial value for price to an empty string
+        sales[`sales_${category}_${product}_${size}_quantity`] = '';
+        sales[`sales_${category}_${product}_${size}_price`] = '';
       });
     });
   });
@@ -62,27 +60,13 @@ const ReportSchema = Yup.object().shape({
   ...Object.keys(categories).reduce((acc, category) => {
     Object.keys(categories[category]).forEach((product) => {
       categories[category][product].packSizes.forEach((size) => {
-        const keyQuantity = `sales_${category}_${product}_${size}_quantity`;
-        const keyPrice = `sales_${category}_${product}_${size}_price`;
-        acc[keyQuantity] = Yup.number()
-          .typeError('Must be a number')
-          .nullable();
-        acc[keyPrice] = Yup.number()
-          .typeError('Must be a number')
-          .nullable();
+        acc[`sales_${category}_${product}_${size}_quantity`] = Yup.number().typeError('Must be a number').nullable();
+        acc[`sales_${category}_${product}_${size}_price`] = Yup.number().typeError('Must be a number').nullable();
       });
     });
     return acc;
   }, {}),
 });
-
-// Helper function to format numbers as currency
-// Helper function to format numbers as currency for total sales
-const formatCurrency = (value) => {
-  return value.toLocaleString('en-US', { style: 'currency', currency: 'Ksh' });
-};
-
-
 
 // PDF component
 const ReportPDF = ({ values }) => {
@@ -99,11 +83,10 @@ const ReportPDF = ({ values }) => {
             product,
             size,
             quantity: values[keyQuantity],
-            price: parseFloat(values[keyPrice]), // Use raw number for price without formatting
+            price: parseFloat(values[keyPrice]),
             unit: categories[category][product].unit,
-            total: formatCurrency(total), // Format total as currency
+            total: total.toLocaleString('en-US', { style: 'currency', currency: 'Ksh' }),
           });
-          
         }
       });
     });
@@ -115,20 +98,18 @@ const ReportPDF = ({ values }) => {
         <Text style={styles.header}>Daily Sales Report</Text>
         <Text style={styles.header}>Date: {values.date}</Text>
         <Text style={styles.header}>Staff: {values.author}</Text>
-
         <Text style={styles.section}>Sales Summary</Text>
-        <Text>Total Sales:{formatCurrency(values.totalSales)}</Text> {/* Format total sales as currency */}
-
-        <Text style={styles.section}>Detailed Sales per Product</Text>
         <View style={styles.table}>
+          {/* Table Header */}
           <View style={styles.tableRow}>
-            <Text style={[styles.tableCell, styles.headerCell]}>Category</Text>
-            <Text style={[styles.tableCell, styles.headerCell]}>Product</Text>
-            <Text style={[styles.tableCell, styles.headerCell]}>Size</Text>
-            <Text style={[styles.tableCell, styles.headerCell]}>Quantity</Text>
-            <Text style={[styles.tableCell, styles.headerCell]}>Price</Text>
-            <Text style={[styles.tableCell, styles.headerCell]}>Total</Text>
+            <Text style={styles.tableHeaderCell}>Category</Text>
+            <Text style={styles.tableHeaderCell}>Product</Text>
+            <Text style={styles.tableHeaderCell}>Pack Size</Text>
+            <Text style={styles.tableHeaderCell}>Quantity</Text>
+            <Text style={styles.tableHeaderCell}>Price</Text>
+            <Text style={styles.tableHeaderCell}>Total</Text>
           </View>
+          {/* Table Rows */}
           {salesRows.map((row, index) => (
             <View style={styles.tableRow} key={index}>
               <Text style={styles.tableCell}>{row.category}</Text>
@@ -140,13 +121,16 @@ const ReportPDF = ({ values }) => {
             </View>
           ))}
         </View>
-
+        {/* Additional Sections */}
         <Text style={styles.section}>Marketing Activities</Text>
         <Text>{values.marketingActivities}</Text>
+
         <Text style={styles.section}>Competitive Analysis</Text>
         <Text>{values.competitiveAnalysis}</Text>
+
         <Text style={styles.section}>Issues and Challenges</Text>
         <Text>{values.issues}</Text>
+
         <Text style={styles.section}>Upcoming Actions</Text>
         <Text>{values.upcomingActions}</Text>
       </Page>
@@ -156,28 +140,27 @@ const ReportPDF = ({ values }) => {
 
 // PDF Styles
 const styles = StyleSheet.create({
-  body: { padding: 10 },
-  header: { fontSize: 18, marginBottom: 10 },
-  section: { fontSize: 16, marginTop: 10, marginBottom: 5 },
+  body: { padding: 20 },
+  header: { fontSize: 18, marginBottom: 10, textAlign: 'center' },
+  section: { fontSize: 16, marginTop: 10, marginBottom: 5, fontWeight: 'bold' },
   table: { display: 'table', width: 'auto', marginTop: 10 },
   tableRow: { flexDirection: 'row', borderBottomWidth: 1, borderBottomColor: '#000' },
-  tableCell: { padding: 5, width: '16.66%' }, // Adjusted width for the new columns
-  headerCell: { fontWeight: 'bold', backgroundColor: '#f2f2f2' },
+  tableHeaderCell: { padding: 5, width: '16.66%', fontWeight: 'bold', backgroundColor: '#f0f0f0' },
+  tableCell: { padding: 5, width: '16.66%' },
 });
 
 const DailyReportApp = () => {
   const [reportData, setReportData] = useState(null);
+  const [selectedProduct, setSelectedProduct] = useState({}); // Tracks selected product per category
 
-  // Function to calculate total sales only for non-empty fields
+  // Calculate total sales
   const calculateTotalSales = (values) => {
     let total = 0;
     Object.keys(categories).forEach((category) => {
       Object.keys(categories[category]).forEach((product) => {
         categories[category][product].packSizes.forEach((size) => {
-          const keyQuantity = `sales_${category}_${product}_${size}_quantity`;
-          const keyPrice = `sales_${category}_${product}_${size}_price`;
-          const quantity = parseFloat(values[keyQuantity]) || 0;
-          const price = parseFloat(values[keyPrice]) || 0;
+          const quantity = parseFloat(values[`sales_${category}_${product}_${size}_quantity`]) || 0;
+          const price = parseFloat(values[`sales_${category}_${product}_${size}_price`]) || 0;
           total += quantity * price;
         });
       });
@@ -187,7 +170,7 @@ const DailyReportApp = () => {
 
   return (
     <div className="App">
-      <h1>Daily Sales Report</h1>
+      <h1>Daily Report App</h1>
       <Formik
         initialValues={{
           date: '',
@@ -200,89 +183,145 @@ const DailyReportApp = () => {
         }}
         validationSchema={ReportSchema}
         onSubmit={(values) => {
-          values.totalSales = calculateTotalSales(values); // Calculate and store total sales
-          setReportData(values); // Set the report data to generate PDF
+          const totalSales = calculateTotalSales(values);
+          setReportData({ ...values, totalSales });
         }}
       >
-        {({ values }) => (
+        {({ values, setFieldValue }) => (
           <Form>
-            <div>
-              <label htmlFor="date">Date:</label>
-              <Field type="date" id="date" name="date" />
+            {/* General Information */}
+            <div className="form-section">
+              <label>Date:</label>
+              <Field type="date" name="date" />
               <ErrorMessage name="date" component="div" className="error" />
             </div>
-            <div>
-              <label htmlFor="author">Staff Name:</label>
-              <Field type="text" id="author" name="author" />
+            <div className="form-section">
+              <label>Author:</label>
+              <Field type="text" name="author" placeholder="Enter your name" />
               <ErrorMessage name="author" component="div" className="error" />
             </div>
-            
-            {/* Render dynamic fields for sales data */}
-            {Object.keys(categories).map((category) => (
-              <div key={category}>
-                <h2>{category}</h2>
-                {Object.keys(categories[category]).map((product) => (
-                  <div key={product}>
-                    <h3>{product}</h3>
-                    {categories[category][product].packSizes.map((size) => (
-                      <div key={size}>
-                        <label>
-                          {size} ({categories[category][product].unit}) Quantity:
-                          <Field
-                            type="number"
-                            name={`sales_${category}_${product}_${size}_quantity`}
-                            // placeholder={`Enter quantity for ${size}`}
-                          />
-                          Price:
-                          <Field
-                            type="number"
-                            name={`sales_${category}_${product}_${size}_price`}
-                            // placeholder={`Enter price for ${size}`}
-                          />
-                        </label>
-                      </div>
-                    ))}
-                  </div>
-                ))}
-              </div>
-            ))}
-
-            {/* Additional sections for report */}
-            <div>
-              <label htmlFor="marketingActivities">Marketing Activities:</label>
-              <Field as="textarea" id="marketingActivities" name="marketingActivities" />
+            <div className="form-section">
+              <label>Marketing Activities:</label>
+              <Field type="text" name="marketingActivities" placeholder="Describe activities" />
               <ErrorMessage name="marketingActivities" component="div" className="error" />
             </div>
-            <div>
-              <label htmlFor="competitiveAnalysis">Competitive Analysis:</label>
-              <Field as="textarea" id="competitiveAnalysis" name="competitiveAnalysis" />
+            <div className="form-section">
+              <label>Competitive Analysis:</label>
+              <Field type="text" name="competitiveAnalysis" placeholder="Analyze competitors" />
               <ErrorMessage name="competitiveAnalysis" component="div" className="error" />
             </div>
-            <div>
-              <label htmlFor="issues">Issues and Challenges:</label>
-              <Field as="textarea" id="issues" name="issues" />
+            <div className="form-section">
+              <label>Issues and Challenges:</label>
+              <Field type="text" name="issues" placeholder="List any issues" />
               <ErrorMessage name="issues" component="div" className="error" />
             </div>
-            <div>
-              <label htmlFor="upcomingActions">Upcoming Actions:</label>
-              <Field as="textarea" id="upcomingActions" name="upcomingActions" />
+            <div className="form-section">
+              <label>Upcoming Actions:</label>
+              <Field type="text" name="upcomingActions" placeholder="Outline actions" />
               <ErrorMessage name="upcomingActions" component="div" className="error" />
             </div>
 
+            {/* Sales Details */}
+            <h2>Sales Details</h2>
+            {Object.keys(categories).map((category) => (
+              <div key={category} className="form-section">
+                <h3>{category}</h3>
+
+                {/* Product Selection */}
+                <label>Product:</label>
+                <Field
+                  as="select"
+                  name={`selectedProduct_${category}`}
+                  value={selectedProduct[category] || ""}
+                  onChange={(e) => {
+                    const selectedProd = e.target.value;
+                    setSelectedProduct({
+                      ...selectedProduct,
+                      [category]: selectedProd,
+                    });
+                    setFieldValue(`selectedProduct_${category}`, selectedProd);
+                    // Reset pack size when product changes
+                    setFieldValue(`packSize_${category}`, '');
+                  }}
+                >
+                  <option value="">Select a product</option>
+                  {Object.keys(categories[category]).map((product) => (
+                    <option key={product} value={product}>
+                      {product}
+                    </option>
+                  ))}
+                </Field>
+                <ErrorMessage name={`selectedProduct_${category}`} component="div" className="error" />
+
+                {/* Pack Size Selection */}
+                {selectedProduct[category] && (
+                  <>
+                    <label>Pack Size:</label>
+                    <Field
+                      as="select"
+                      name={`packSize_${category}`}
+                      onChange={(e) => {
+                        setFieldValue(`packSize_${category}`, e.target.value);
+                      }}
+                    >
+                      <option value="">Select pack size</option>
+                      {categories[category][selectedProduct[category]].packSizes.map((size) => (
+                        <option key={size} value={size}>
+                          {size} {categories[category][selectedProduct[category]].unit}
+                        </option>
+                      ))}
+                    </Field>
+                    <ErrorMessage name={`packSize_${category}`} component="div" className="error" />
+                  </>
+                )}
+
+                {/* Quantity and Price Inputs */}
+                {selectedProduct[category] && values[`packSize_${category}`] && (
+                  <>
+                    <div className="sales-inputs">
+                      <label>Quantity:</label>
+                      <Field
+                        type="number"
+                        name={`sales_${category}_${selectedProduct[category]}_${values[`packSize_${category}`]}_quantity`}
+                        placeholder="Quantity"
+                      />
+                      <ErrorMessage
+                        name={`sales_${category}_${selectedProduct[category]}_${values[`packSize_${category}`]}_quantity`}
+                        component="div"
+                        className="error"
+                      />
+                    </div>
+                    <div className="sales-inputs">
+                      <label>Price:</label>
+                      <Field
+                        type="number"
+                        name={`sales_${category}_${selectedProduct[category]}_${values[`packSize_${category}`]}_price`}
+                        placeholder="Price"
+                      />
+                      <ErrorMessage
+                        name={`sales_${category}_${selectedProduct[category]}_${values[`packSize_${category}`]}_price`}
+                        component="div"
+                        className="error"
+                      />
+                    </div>
+                  </>
+                )}
+              </div>
+            ))}
+
             <button type="submit">Generate Report</button>
+
+            {/* PDF Download Link */}
+            {reportData && (
+              <PDFDownloadLink document={<ReportPDF values={reportData} />} fileName="daily_report.pdf">
+                {({ blob, url, loading, error }) =>
+                  loading ? 'Loading document...' : 'Download Report'
+                }
+              </PDFDownloadLink>
+            )}
           </Form>
         )}
       </Formik>
-
-      {/* Render the PDF Download Link if report data is available */}
-      {reportData && (
-        <PDFDownloadLink
-          document={<ReportPDF values={reportData} />}
-          fileName="daily_sales_report.pdf"
-        >
-          {({ loading }) => (loading ? 'Generating PDF...' : 'Download Report as PDF')}
-        </PDFDownloadLink>
-      )}
     </div>
   );
 };
