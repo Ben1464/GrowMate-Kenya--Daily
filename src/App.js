@@ -69,6 +69,7 @@ const ReportSchema = Yup.object().shape({
 });
 
 // PDF component
+// PDF component
 const ReportPDF = ({ values }) => {
   const salesRows = [];
   Object.keys(categories).forEach((category) => {
@@ -121,6 +122,10 @@ const ReportPDF = ({ values }) => {
             </View>
           ))}
         </View>
+
+        {/* Total Sales Section */}
+        <Text style={styles.section}>Total Sales: {values.totalSales.toLocaleString('en-US', { style: 'currency', currency: 'Ksh' })}</Text>
+        
         {/* Additional Sections */}
         <Text style={styles.section}>Marketing Activities</Text>
         <Text>{values.marketingActivities}</Text>
@@ -137,6 +142,7 @@ const ReportPDF = ({ values }) => {
     </Document>
   );
 };
+
 
 // PDF Styles
 const styles = StyleSheet.create({
@@ -310,6 +316,13 @@ const DailyReportApp = () => {
             ))}
 
             <button type="submit">Generate Report</button>
+
+            {/* Total Sales Display */}
+            {reportData && (
+              <div className="total-sales">
+                <h3>Total Sales: Ksh {reportData.totalSales.toLocaleString()}</h3>
+              </div>
+            )}
 
             {/* PDF Download Link */}
             {reportData && (
