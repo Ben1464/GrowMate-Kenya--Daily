@@ -1,120 +1,180 @@
-/* App.css */
+/* General App Layout */
 body {
   font-family: 'Roboto', sans-serif;
   background-color: #f4f7fc;
+  color: #333;
   margin: 0;
   padding: 0;
 }
 
 h1 {
+  color: #006699;
   text-align: center;
-  color: #2c3e50;
-  margin-top: 20px;
-  font-size: 2.5em;
-}
-
-h2, h3 {
-  color: #34495e;
-  margin-bottom: 15px;
-  font-weight: 500;
-}
-
-.App {
-  max-width: 900px;
-  margin: 0 auto;
-  background-color: #ffffff;
-  padding: 40px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
-  margin-top: 50px;
-}
-
-/* Form section styles */
-.form-section {
-  margin-bottom: 25px;
-}
-
-label {
-  font-weight: 500;
-  color: #2c3e50;
-  display: block;
-  margin-bottom: 8px;
-  font-size: 1.1em;
-}
-
-input[type="text"],
-input[type="date"],
-input[type="number"],
-select {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #dcdfe6;
-  border-radius: 5px;
-  margin-bottom: 15px;
-  font-size: 1em;
-}
-
-input[type="text"]:focus,
-input[type="date"]:focus,
-input[type="number"]:focus,
-select:focus {
-  outline: none;
-  border-color: #3498db;
-}
-
-.error {
-  color: #e74c3c;
-  font-size: 0.9em;
-}
-
-button[type="submit"] {
-  width: 100%;
-  padding: 12px 20px;
-  background-color: #3498db;
-  border: none;
-  color: white;
-  font-size: 1.2em;
-  cursor: pointer;
-  border-radius: 5px;
-  transition: background-color 0.3s;
-}
-
-button[type="submit"]:hover {
-  background-color: #2980b9;
-}
-
-/* Sales details styles */
-.sales-inputs {
-  display: flex;
-  justify-content: space-between;
-}
-
-.sales-inputs input {
-  width: 48%;
-}
-
-.sales-inputs input::placeholder {
-  color: #95a5a6;
-}
-
-/* Download link styling */
-a {
-  display: inline-block;
-  margin-top: 20px;
-  padding: 12px 20px;
-  background-color: #27ae60;
-  color: white;
-  text-decoration: none;
-  font-size: 1.2em;
-  border-radius: 5px;
-}
-
-a:hover {
-  background-color: #2ecc71;
+  margin-bottom: 1rem;
+  font-size: 2.5rem;
 }
 
 h3 {
-  border-bottom: 2px solid #3498db;
-  padding-bottom: 8px;
-  margin-bottom: 15px;
+  font-size: 1.6rem;
+  color: #444;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid #006699;
+  padding-bottom: 0.3rem;
+}
+
+h4 {
+  font-size: 1.4rem;
+  color: #555;
+}
+
+.App {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+}
+
+/* Styling Form Fields */
+label {
+  font-weight: 500;
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+input, textarea, select {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  transition: all 0.3s;
+}
+
+input:focus, textarea:focus, select:focus {
+  border-color: #006699;
+  box-shadow: 0 0 8px rgba(0, 102, 153, 0.1);
+  outline: none;
+}
+
+textarea {
+  height: 100px;
+}
+
+button {
+  background-color: #006699;
+  color: #fff;
+  border: none;
+  padding: 12px 20px;
+  font-size: 1.2rem;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #004d80;
+}
+
+/* Categories & Products Layout */
+.category-section {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.category-section div {
+  background-color: #e8f1f7;
+  padding: 15px;
+  margin: 10px;
+  flex: 1;
+  text-align: center;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+}
+
+.category-section div:hover {
+  background-color: #006699;
+  color: white;
+  box-shadow: 0 5px 15px rgba(0, 102, 153, 0.2);
+}
+
+button {
+  padding: 12px 24px;
+  border-radius: 5px;
+  transition: 0.3s ease;
+}
+
+button:hover {
+  background-color: #004d80;
+  transform: translateY(-2px);
+}
+
+/* Table for Report Summary */
+.table {
+  width: 100%;
+  margin-top: 20px;
+  border-collapse: collapse;
+}
+
+.tableRow {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #ddd;
+}
+
+.tableHeaderCell {
+  background-color: #006699;
+  color: white;
+  padding: 12px;
+  text-align: left;
+  font-weight: bold;
+}
+
+.tableCell {
+  padding: 12px;
+  text-align: left;
+}
+
+/* PDF Download Link */
+.PDFDownloadLink {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.PDFDownloadLink a {
+  color: white;
+  text-decoration: none;
+  padding: 10px 20px;
+  background-color: #006699;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  transition: background-color 0.3s ease;
+}
+
+.PDFDownloadLink a:hover {
+  background-color: #004d80;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .category-section {
+    flex-direction: column;
+  }
+
+  .tableRow {
+    flex-direction: column;
+  }
+
+  .tableHeaderCell, .tableCell {
+    width: 100%;
+    padding: 10px 5px;
+  }
 }

@@ -69,7 +69,6 @@ const ReportSchema = Yup.object().shape({
 });
 
 // PDF component
-// PDF component
 const ReportPDF = ({ values }) => {
   const salesRows = [];
   Object.keys(categories).forEach((category) => {
@@ -101,7 +100,6 @@ const ReportPDF = ({ values }) => {
         <Text style={styles.header}>Staff: {values.author}</Text>
         <Text style={styles.section}>Sales Summary</Text>
         <View style={styles.table}>
-          {/* Table Header */}
           <View style={styles.tableRow}>
             <Text style={styles.tableHeaderCell}>Category</Text>
             <Text style={styles.tableHeaderCell}>Product</Text>
@@ -110,7 +108,6 @@ const ReportPDF = ({ values }) => {
             <Text style={styles.tableHeaderCell}>Price</Text>
             <Text style={styles.tableHeaderCell}>Total</Text>
           </View>
-          {/* Table Rows */}
           {salesRows.map((row, index) => (
             <View style={styles.tableRow} key={index}>
               <Text style={styles.tableCell}>{row.category}</Text>
@@ -122,20 +119,13 @@ const ReportPDF = ({ values }) => {
             </View>
           ))}
         </View>
-
-        {/* Total Sales Section */}
         <Text style={styles.section}>Total Sales: {values.totalSales.toLocaleString('en-US', { style: 'currency', currency: 'Ksh' })}</Text>
-        
-        {/* Additional Sections */}
         <Text style={styles.section}>Marketing Activities</Text>
         <Text>{values.marketingActivities}</Text>
-
         <Text style={styles.section}>Competitive Analysis</Text>
         <Text>{values.competitiveAnalysis}</Text>
-
         <Text style={styles.section}>Issues and Challenges</Text>
         <Text>{values.issues}</Text>
-
         <Text style={styles.section}>Upcoming Actions</Text>
         <Text>{values.upcomingActions}</Text>
       </Page>
@@ -143,8 +133,6 @@ const ReportPDF = ({ values }) => {
   );
 };
 
-
-// PDF Styles
 const styles = StyleSheet.create({
   body: { padding: 20 },
   header: { fontSize: 18, marginBottom: 10, textAlign: 'center' },
@@ -157,9 +145,8 @@ const styles = StyleSheet.create({
 
 const DailyReportApp = () => {
   const [reportData, setReportData] = useState(null);
-  const [selectedProduct, setSelectedProduct] = useState({}); // Tracks selected product per category
+  const [selectedProduct, setSelectedProduct] = useState({});
 
-  // Calculate total sales
   const calculateTotalSales = (values) => {
     let total = 0;
     Object.keys(categories).forEach((category) => {
@@ -174,9 +161,13 @@ const DailyReportApp = () => {
     return total;
   };
 
+  const handleProductSelect = (category, product) => {
+    setSelectedProduct({ category, product });
+  };
+
   return (
     <div className="App">
-      <h1>Daily Report App</h1>
+      <h1>Daily Sales Report</h1>
       <Formik
         initialValues={{
           date: '',
@@ -193,148 +184,103 @@ const DailyReportApp = () => {
           setReportData({ ...values, totalSales });
         }}
       >
-        {({ values, setFieldValue }) => (
+        {({ values }) => (
           <Form>
-            {/* General Information */}
-            <div className="form-section">
+            <div>
               <label>Date:</label>
               <Field type="date" name="date" />
-              <ErrorMessage name="date" component="div" className="error" />
+              <ErrorMessage name="date" component="div" />
             </div>
-            <div className="form-section">
+            <div>
               <label>Staff Name:</label>
-              <Field type="text" name="author" placeholder="Enter your name" />
-              <ErrorMessage name="author" component="div" className="error" />
+              <Field type="text" name="author" />
+              <ErrorMessage name="author" component="div" />
             </div>
-            <div className="form-section">
-              <label>Marketing Activities:</label>
-              <Field type="text" name="marketingActivities" placeholder="Describe activities" />
-              <ErrorMessage name="marketingActivities" component="div" className="error" />
-            </div>
-            <div className="form-section">
-              <label>Competitive Analysis:</label>
-              <Field type="text" name="competitiveAnalysis" placeholder="A brief description of competitors activities.." />
-              <ErrorMessage name="competitiveAnalysis" component="div" className="error" />
-            </div>
-            <div className="form-section">
-              <label>Issues and Challenges:</label>
-              <Field type="text" name="issues" placeholder="List issues and challenges.." />
-              <ErrorMessage name="issues" component="div" className="error" />
-            </div>
-            <div className="form-section">
-              <label>Upcoming Actions:</label>
-              <Field type="text" name="upcomingActions" placeholder="Today's actions/plan.." />
-              <ErrorMessage name="upcomingActions" component="div" className="error" />
-            </div>
-
-            {/* Sales Details */}
-            <h2>Sales Details</h2>
-            {Object.keys(categories).map((category) => (
-              <div key={category} className="form-section">
-                <h3>{category}</h3>
-
-                {/* Product Selection */}
-                <label>Product:</label>
-                <Field
-                  as="select"
-                  name={`selectedProduct_${category}`}
-                  value={selectedProduct[category] || ""}
-                  onChange={(e) => {
-                    const selectedProd = e.target.value;
-                    setSelectedProduct({
-                      ...selectedProduct,
-                      [category]: selectedProd,
-                    });
-                    setFieldValue(`selectedProduct_${category}`, selectedProd);
-                    // Reset pack size when product changes
-                    setFieldValue(`packSize_${category}`, '');
-                  }}
-                >
-                  <option value="">Select a product</option>
+            <div>
+              <h3>Select Category and Product</h3>
+              {Object.keys(categories).map((category) => (
+                <div key={category}>
+                  <h4>{category}</h4>
                   {Object.keys(categories[category]).map((product) => (
-                    <option key={product} value={product}>
-                      {product}
-                    </option>
+                    <div key={product}>
+                      <button type="button" onClick={() => handleProductSelect(category, product)}>
+                        {product}
+                      </button>
+                    </div>
                   ))}
-                </Field>
-                <ErrorMessage name={`selectedProduct_${category}`} component="div" className="error" />
+                </div>
+              ))}
+            </div>
 
-                {/* Pack Size Selection */}
-                {selectedProduct[category] && (
-                  <>
-                    <label>Pack Size:</label>
-                    <Field
-                      as="select"
-                      name={`packSize_${category}`}
-                      onChange={(e) => {
-                        setFieldValue(`packSize_${category}`, e.target.value);
-                      }}
-                    >
-                      <option value="">Select pack size</option>
-                      {categories[category][selectedProduct[category]].packSizes.map((size) => (
-                        <option key={size} value={size}>
-                          {size} {categories[category][selectedProduct[category]].unit}
-                        </option>
-                      ))}
-                    </Field>
-                    <ErrorMessage name={`packSize_${category}`} component="div" className="error" />
-                  </>
-                )}
-
-                {/* Quantity and Price Inputs */}
-                {selectedProduct[category] && values[`packSize_${category}`] && (
-                  <>
-                    <div className="sales-inputs">
+            {selectedProduct.category && selectedProduct.product && (
+              <>
+                <h4>Input Sales for {selectedProduct.product}</h4>
+                {categories[selectedProduct.category][selectedProduct.product].packSizes.map((size) => (
+                  <div key={size}>
+                    <label>
+                      {size} ({categories[selectedProduct.category][selectedProduct.product].unit})
+                    </label>
+                    <div>
                       <label>Quantity:</label>
                       <Field
                         type="number"
-                        name={`sales_${category}_${selectedProduct[category]}_${values[`packSize_${category}`]}_quantity`}
-                        placeholder="Quantity"
+                        name={`sales_${selectedProduct.category}_${selectedProduct.product}_${size}_quantity`}
                       />
                       <ErrorMessage
-                        name={`sales_${category}_${selectedProduct[category]}_${values[`packSize_${category}`]}_quantity`}
+                        name={`sales_${selectedProduct.category}_${selectedProduct.product}_${size}_quantity`}
                         component="div"
-                        className="error"
                       />
                     </div>
-                    <div className="sales-inputs">
-                      <label>Price:</label>
+                    <div>
+                      <label>Price per Unit (Ksh):</label>
                       <Field
                         type="number"
-                        name={`sales_${category}_${selectedProduct[category]}_${values[`packSize_${category}`]}_price`}
-                        placeholder="Price"
+                        name={`sales_${selectedProduct.category}_${selectedProduct.product}_${size}_price`}
                       />
                       <ErrorMessage
-                        name={`sales_${category}_${selectedProduct[category]}_${values[`packSize_${category}`]}_price`}
+                        name={`sales_${selectedProduct.category}_${selectedProduct.product}_${size}_price`}
                         component="div"
-                        className="error"
                       />
                     </div>
-                  </>
-                )}
+                  </div>
+                ))}
+              </>
+            )}
+
+            <div>
+              <h3>Other Report Details</h3>
+              <div>
+                <label>Marketing Activities:</label>
+                <Field as="textarea" name="marketingActivities" />
+                <ErrorMessage name="marketingActivities" component="div" />
               </div>
-            ))}
+              <div>
+                <label>Competitive Analysis:</label>
+                <Field as="textarea" name="competitiveAnalysis" />
+                <ErrorMessage name="competitiveAnalysis" component="div" />
+              </div>
+              <div>
+                <label>Challenges Faced:</label>
+                <Field as="textarea" name="issues" />
+                <ErrorMessage name="issues" component="div" />
+              </div>
+              <div>
+                <label>Upcoming Actions:</label>
+                <Field as="textarea" name="upcomingActions" />
+                <ErrorMessage name="upcomingActions" component="div" />
+              </div>
+            </div>
 
             <button type="submit">Generate Report</button>
-
-            {/* Total Sales Display */}
-            {reportData && (
-              <div className="total-sales">
-                <h3>Total Sales: Ksh {reportData.totalSales.toLocaleString()}</h3>
-              </div>
-            )}
-
-            {/* PDF Download Link */}
-            {reportData && (
-              <PDFDownloadLink document={<ReportPDF values={reportData} />} fileName="daily_report.pdf">
-                {({ blob, url, loading, error }) =>
-                  loading ? 'Loading document...' : 'Download Report'
-                }
-              </PDFDownloadLink>
-            )}
           </Form>
         )}
       </Formik>
+
+      {reportData && (
+        <PDFDownloadLink document={<ReportPDF values={reportData} />} fileName="DailySalesReport.pdf">
+          {({ loading }) => (loading ? 'Loading document...' : 'Download PDF')}
+        </PDFDownloadLink>
+      )}
     </div>
   );
 };
