@@ -98,6 +98,7 @@ const ReportPDF = ({ values }) => {
         <Text style={styles.header}>Daily Sales Report</Text>
         <Text style={styles.header}>Date: {values.date}</Text>
         <Text style={styles.header}>Staff: {values.author}</Text>
+        <Text style={styles.header}>Target</Text>
         <Text style={styles.section}>Sales Summary</Text>
         <View style={styles.table}>
           <View style={styles.tableRow}>
@@ -172,6 +173,7 @@ const DailyReportApp = () => {
         initialValues={{
           date: '',
           author: '',
+          target:'',
           marketingActivities: '',
           competitiveAnalysis: '',
           issues: '',
@@ -195,6 +197,11 @@ const DailyReportApp = () => {
               <label>Staff Name:</label>
               <Field type="text" name="author" />
               <ErrorMessage name="author" component="div" />
+            </div>
+            <div>
+              <label>Target:</label>
+              <Field type="number" name="target" />
+              <ErrorMessage name="target" component="div" />
             </div>
             <div>
               <h3>Select Category and Product</h3>
