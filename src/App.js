@@ -71,6 +71,10 @@ const ReportSchema = Yup.object().shape({
 // PDF component
 const ReportPDF = ({ values }) => {
   const salesRows = [];
+  const target = parseFloat(values.target) || 0;
+  const totalSales = parseFloat(values.totalSales) || 0;
+  const percentageAchieved = target > 0 ? ((totalSales / target) * 100).toFixed(2) : 0;
+
   Object.keys(categories).forEach((category) => {
     Object.keys(categories[category]).forEach((product) => {
       categories[category][product].packSizes.forEach((size) => {
@@ -98,7 +102,8 @@ const ReportPDF = ({ values }) => {
         <Text style={styles.header}>Daily Sales Report</Text>
         <Text style={styles.header}>Date: {values.date}</Text>
         <Text style={styles.header}>Staff: {values.author}</Text>
-        <Text style={styles.header}>Target</Text>
+        <Text style={styles.section}>Target: {target.toLocaleString('en-US', { style: 'currency', currency: 'Ksh' })}</Text>
+        <Text style={styles.section}>% Achieved: {percentageAchieved}%</Text>
         <Text style={styles.section}>Sales Summary</Text>
         <View style={styles.table}>
           <View style={styles.tableRow}>
@@ -120,7 +125,7 @@ const ReportPDF = ({ values }) => {
             </View>
           ))}
         </View>
-        <Text style={styles.section}>Total Sales: {values.totalSales.toLocaleString('en-US', { style: 'currency', currency: 'Ksh' })}</Text>
+        <Text style={styles.section}>Total Sales: {totalSales.toLocaleString('en-US', { style: 'currency', currency: 'Ksh' })}</Text>
         <Text style={styles.section}>Marketing Activities</Text>
         <Text>{values.marketingActivities}</Text>
         <Text style={styles.section}>Competitive Analysis</Text>
@@ -133,6 +138,7 @@ const ReportPDF = ({ values }) => {
     </Document>
   );
 };
+
 
 const styles = StyleSheet.create({
   body: { padding: 20 },
@@ -170,22 +176,23 @@ const DailyReportApp = () => {
     <div className="App">
       <h1>Daily Sales Report</h1>
       <Formik
-        initialValues={{
-          date: '',
-          author: '',
-          target:'',
-          marketingActivities: '',
-          competitiveAnalysis: '',
-          issues: '',
-          upcomingActions: '',
-          ...generateInitialSales(),
-        }}
-        validationSchema={ReportSchema}
-        onSubmit={(values) => {
-          const totalSales = calculateTotalSales(values);
-          setReportData({ ...values, totalSales });
-        }}
-      >
+  initialValues={{
+    date: '',
+    author: '',
+    target: '',
+    marketingActivities: '',
+    competitiveAnalysis: '',
+    issues: '',
+    upcomingActions: '',
+    ...generateInitialSales(),
+  }}
+  validationSchema={ReportSchema}
+  onSubmit={(values) => {
+    const totalSales = calculateTotalSales(values);
+    setReportData({ ...values, totalSales });
+  }}
+>
+
         {({ values }) => (
           <Form>
             <div>
