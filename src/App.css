@@ -8,7 +8,7 @@ body {
 }
 
 h1 {
-  color: #cefc03;
+  color: #73fc03;
   text-align: center;
   margin-bottom: 1rem;
   font-size: 2.5rem;
@@ -18,7 +18,7 @@ h3 {
   font-size: 1.6rem;
   color: #444;
   margin-bottom: 1rem;
-  border-bottom: 2px solid #cefc03;
+  border-bottom: 2px solid #73fc03;
   padding-bottom: 0.3rem;
 }
 
@@ -56,7 +56,7 @@ input, textarea, select {
 }
 
 input:focus, textarea:focus, select:focus {
-  border-color: #cefc03;
+  border-color: #73fc03;
   box-shadow: 0 0 8px rgba(0, 102, 153, 0.1);
   outline: none;
 }
@@ -66,7 +66,7 @@ textarea {
 }
 
 button {
-  background-color: #cefc03;
+  background-color: #73fc03;
   color: #fff;
   border: none;
   padding: 12px 20px;
@@ -78,7 +78,7 @@ button {
 }
 
 button:hover {
-  background-color: #cefc03;
+  background-color: #73fc03;
 }
 
 /* Categories & Products Layout */
@@ -101,7 +101,7 @@ button:hover {
 }
 
 .category-section div:hover {
-  background-color: #cefc03;
+  background-color: #73fc03;
   color: white;
   box-shadow: 0 5px 15px rgba(0, 102, 153, 0.2);
 }
@@ -113,7 +113,7 @@ button {
 }
 
 button:hover {
-  background-color: #cefc03;
+  background-color: #73fc03;
   transform: translateY(-2px);
 }
 
@@ -131,7 +131,7 @@ button:hover {
 }
 
 .tableHeaderCell {
-  background-color: #cefc03;
+  background-color: #73fc03;
   color: white;
   padding: 12px;
   text-align: left;
@@ -153,14 +153,14 @@ button:hover {
   color: white;
   text-decoration: none;
   padding: 10px 20px;
-  background-color: #cefc03;
+  background-color: #73fc03;
   border-radius: 5px;
   font-size: 1.2rem;
   transition: background-color 0.3s ease;
 }
 
 .PDFDownloadLink a:hover {
-  background-color: #cefc03;
+  background-color: #73fc03;
 }
 
 /* Responsive Design */

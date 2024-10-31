@@ -285,7 +285,7 @@ const DailyReportApp = () => {
               </div>
             </div>
 
-            <button type="submit">Generate Report</button>
+            <button type="submit">Generate Daily Report</button>
           </Form>
         )}
       </Formik>
