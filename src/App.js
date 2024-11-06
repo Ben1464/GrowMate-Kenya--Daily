@@ -3,6 +3,8 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { PDFDownloadLink, Page, Text, Document, StyleSheet, View } from '@react-pdf/renderer';
 import './App.css';
+import { pdf } from '@react-pdf/renderer';
+
 
 // Define Categories, Products, Pack Sizes, and Units
 const categories = {
@@ -172,27 +174,50 @@ const DailyReportApp = () => {
     setSelectedProduct({ category, product });
   };
 
+  const handleShare = async (blob) => {
+    if (navigator.share && blob) {
+      const file = new File([blob], "DailySalesReport.pdf", { type: "application/pdf" });
+      try {
+        await navigator.share({
+          files: [file],
+          title: 'Daily Sales Report',
+          text: 'Here is the daily sales report.',
+        });
+      } catch (error) {
+        console.error("Error sharing report:", error);
+      }
+    } else {
+      alert("Sharing not supported on this browser.");
+    }
+  };
+
+  const sharePDF = async () => {
+    if (reportData) {
+      const blob = await pdf(<ReportPDF values={reportData} />).toBlob();
+      handleShare(blob);
+    }
+  };
+
   return (
     <div className="App">
       <h1>Daily Sales Report</h1>
       <Formik
-  initialValues={{
-    date: '',
-    author: '',
-    target: '',
-    marketingActivities: '',
-    competitiveAnalysis: '',
-    issues: '',
-    upcomingActions: '',
-    ...generateInitialSales(),
-  }}
-  validationSchema={ReportSchema}
-  onSubmit={(values) => {
-    const totalSales = calculateTotalSales(values);
-    setReportData({ ...values, totalSales });
-  }}
->
-
+        initialValues={{
+          date: '',
+          author: '',
+          target: '',
+          marketingActivities: '',
+          competitiveAnalysis: '',
+          issues: '',
+          upcomingActions: '',
+          ...generateInitialSales(),
+        }}
+        validationSchema={ReportSchema}
+        onSubmit={(values) => {
+          const totalSales = calculateTotalSales(values);
+          setReportData({ ...values, totalSales });
+        }}
+      >
         {({ values }) => (
           <Form>
             <div>
@@ -286,15 +311,19 @@ const DailyReportApp = () => {
             </div>
 
             <button type="submit">Generate Daily Report</button>
+            {reportData && (
+              <>
+                <PDFDownloadLink document={<ReportPDF values={reportData} />} fileName="DailySalesReport.pdf">
+                  {({ loading }) => (loading ? 'Loading document...' : 'Download PDF')}
+                </PDFDownloadLink>
+                <button type="button" onClick={sharePDF}>
+                  Share Report
+                </button>
+              </>
+            )}
           </Form>
         )}
       </Formik>
-
-      {reportData && (
-        <PDFDownloadLink document={<ReportPDF values={reportData} />} fileName="DailySalesReport.pdf">
-          {({ loading }) => (loading ? 'Loading document...' : 'Download PDF')}
-        </PDFDownloadLink>
-      )}
     </div>
   );
 };
