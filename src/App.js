@@ -316,9 +316,10 @@ const DailyReportApp = () => {
             <button type="submit">Generate Daily Report</button>
             {reportData && (
               <>
-                <PDFDownloadLink document={<ReportPDF values={reportData} />} fileName="DailySalesReport.pdf">
+                {/* <PDFDownloadLink document={<ReportPDF values={reportData} />} fileName="DailySalesReport.pdf">
                   {({ loading }) => (loading ? 'Loading document...' : 'Download PDF')}
                 </PDFDownloadLink>
+                */}
                 
                 {/* Share icon instead of button */}
                 <FontAwesomeIcon
