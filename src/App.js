@@ -4,6 +4,9 @@ import * as Yup from 'yup';
 import { PDFDownloadLink, Page, Text, Document, StyleSheet, View } from '@react-pdf/renderer';
 import './App.css';
 import { pdf } from '@react-pdf/renderer';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faShareAlt } from '@fortawesome/free-solid-svg-icons';
+
 
 
 // Define Categories, Products, Pack Sizes, and Units
@@ -316,9 +319,14 @@ const DailyReportApp = () => {
                 <PDFDownloadLink document={<ReportPDF values={reportData} />} fileName="DailySalesReport.pdf">
                   {({ loading }) => (loading ? 'Loading document...' : 'Download PDF')}
                 </PDFDownloadLink>
-                <button type="button" onClick={sharePDF}>
-                  Share Report
-                </button>
+                
+                {/* Share icon instead of button */}
+                <FontAwesomeIcon
+                  icon={faShareAlt}
+                  onClick={sharePDF}
+                  style={{ cursor: 'pointer', fontSize: '24px', marginLeft: '10px' }}
+                  title="Share Report"
+                />
               </>
             )}
           </Form>
