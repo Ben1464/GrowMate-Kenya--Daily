@@ -327,7 +327,7 @@ const DailyReportApp = () => {
   onClick={sharePDF}
   style={{
     cursor: 'pointer',
-    fontSize: '24px',
+    fontSize: '28px',
     marginLeft: '10px',
     color: '#4CAF50', // Adds a green color to make it more noticeable
     transition: 'transform 0.3s ease, color 0.3s ease',
