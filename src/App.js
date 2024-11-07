@@ -323,11 +323,22 @@ const DailyReportApp = () => {
                 
                 {/* Share icon instead of button */}
                 <FontAwesomeIcon
-                  icon={faShareAlt}
-                  onClick={sharePDF}
-                  style={{ cursor: 'pointer', fontSize: '24px', marginLeft: '10px' }}
-                  title="Share Report"
-                />
+  icon={faShareAlt}
+  onClick={sharePDF}
+  style={{
+    cursor: 'pointer',
+    fontSize: '24px',
+    marginLeft: '10px',
+    color: '#4CAF50', // Adds a green color to make it more noticeable
+    transition: 'transform 0.3s ease, color 0.3s ease',
+  }}
+  title="Share Report"
+  onMouseEnter={(e) => (e.currentTarget.style.color = '#2E7D32')} // Darkens color on hover
+  onMouseLeave={(e) => (e.currentTarget.style.color = '#4CAF50')}
+  onMouseDown={(e) => (e.currentTarget.style.transform = 'scale(0.9)')} // Adds a press effect
+  onMouseUp={(e) => (e.currentTarget.style.transform = 'scale(1)')}
+/>
+
               </>
             )}
           </Form>
