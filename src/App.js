@@ -28,7 +28,7 @@ const categories = {
     Zincbomate: { unit: 'mls', packSizes: [100, 250, 500, '1ltr'] },
     Calcibora: { unit: 'mls', packSizes: [100, 250, 500, '1ltr'] },
     Boroking: { unit: 'mls', packSizes: [100, 250, 500, '1ltr'] },
-    Growspeed_macro: { unit: 'mls', packSizes: [100, 250, 500, '1ltr'] },
+    Growspeed: { unit: 'mls', packSizes: [100, 250, 500, '1ltr'] },
   },
   Adjuvant: {
     Polysil: { unit: 'mls', packSizes: [25, 50, 100, 250, '1ltr'] },
