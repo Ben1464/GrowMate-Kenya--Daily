@@ -1,6 +1,6 @@
 {
-  "name": "GrowMate Daily",
-  "short_name": "GrowMate Daily",
+  "name": "Daily report",
+  "short_name": "Daily report",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#ffffff",
