@@ -108,7 +108,7 @@ const ReportPDF = ({ values }) => {
         <Text style={styles.header}>Date: {values.date}</Text>
         <Text style={styles.header}>Staff: {values.author}</Text>
         <Text style={styles.section}>Target: {target.toLocaleString('en-US', { style: 'currency', currency: 'Ksh' })}</Text>
-        <Text style={styles.section}>% Achieved: {percentageAchieved}%</Text>
+        <Text style={styles.section}>Percentage Target Achieved: {percentageAchieved}%</Text>
         <Text style={styles.section}>Sales Summary</Text>
         <View style={styles.table}>
           <View style={styles.tableRow}>
