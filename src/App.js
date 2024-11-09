@@ -177,9 +177,13 @@ const DailyReportApp = () => {
     setSelectedProduct({ category, product });
   };
 
-  const handleShare = async (blob) => {
+  const handleShare = async (blob, authorName) => {
     if (navigator.share && blob) {
-      const file = new File([blob], "DailySalesReport.pdf", { type: "application/pdf" });
+      const formattedDate = new Date().toLocaleDateString('en-GB').replace(/\//g, '-'); // Format: DD-MM-YYYY
+      const fileName = `${authorName}_SalesReport_${formattedDate}.pdf`; // Dynamic filename
+  
+      const file = new File([blob], fileName, { type: "application/pdf" });
+  
       try {
         await navigator.share({
           files: [file],
@@ -193,6 +197,7 @@ const DailyReportApp = () => {
       alert("Sharing not supported on this browser.");
     }
   };
+  
 
   const sharePDF = async () => {
     if (reportData) {
