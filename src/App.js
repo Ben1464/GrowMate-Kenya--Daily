@@ -177,34 +177,49 @@ const DailyReportApp = () => {
     setSelectedProduct({ category, product });
   };
 
-  const handleShare = async (blob, authorName) => {
-    if (navigator.share && blob) {
-      const formattedDate = new Date().toLocaleDateString('en-GB').replace(/\//g, '-'); // Format: DD-MM-YYYY
-      const fileName = `${authorName}_SalesReport_${formattedDate}.pdf`; // Dynamic filename
-  
-      const file = new File([blob], fileName, { type: "application/pdf" });
-  
-      try {
-        await navigator.share({
-          files: [file],
-          title: 'Daily Sales Report',
-          text: 'Here is the daily sales report.',
-        });
-      } catch (error) {
-        console.error("Error sharing report:", error);
-      }
-    } else {
-      alert("Sharing not supported on this browser.");
-    }
-  };
-  
+ // Assuming `authorName` is defined as a state variable from user input
+const [authorName, setAuthorName] = useState("");
 
-  const sharePDF = async () => {
-    if (reportData) {
-      const blob = await pdf(<ReportPDF values={reportData} />).toBlob();
-      handleShare(blob);
+// `handleShare` function remains the same
+const handleShare = async (blob, authorName) => {
+  if (navigator.share && blob) {
+    const formattedDate = new Date().toLocaleDateString('en-GB').replace(/\//g, '-'); // Format: DD-MM-YYYY
+    const fileName = `${authorName}_SalesReport_${formattedDate}.pdf`; // Dynamic filename
+
+    const file = new File([blob], fileName, { type: "application/pdf" });
+
+    try {
+      await navigator.share({
+        files: [file],
+        title: 'Daily Sales Report',
+        text: 'Here is the daily sales report.',
+      });
+    } catch (error) {
+      console.error("Error sharing report:", error);
     }
-  };
+  } else {
+    alert("Sharing not supported on this browser.");
+  }
+};
+
+// `sharePDF` now explicitly receives `authorName`
+const sharePDF = async () => {
+  if (reportData && authorName) { // Ensure `authorName` is available
+    const pdfBlob = await pdf(<ReportPDF values={reportData} />).toBlob();
+    handleShare(pdfBlob, authorName);
+  } else {
+    alert("Please provide an author name before sharing.");
+  }
+};
+
+// Example of how `authorName` might be set (e.g., in a form)
+<input
+  type="text"
+  placeholder="Enter Author Name"
+  value={authorName}
+  onChange={(e) => setAuthorName(e.target.value)}
+/>
+
 
   return (
     <div className="App">
