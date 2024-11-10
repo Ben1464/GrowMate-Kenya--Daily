@@ -178,7 +178,7 @@ const DailyReportApp = () => {
   };
 
  // Assuming `authorName` is defined as a state variable from user input
-const [authorName, setAuthorName] = useState("");
+const [author, setAuthor] = useState("");
 
 // `handleShare` function remains the same
 const handleShare = async (blob, authorName) => {
@@ -204,9 +204,9 @@ const handleShare = async (blob, authorName) => {
 
 // `sharePDF` now explicitly receives `authorName`
 const sharePDF = async () => {
-  if (reportData && authorName) { // Ensure `authorName` is available
+  if (reportData && author) { // Ensure `authorName` is available
     const pdfBlob = await pdf(<ReportPDF values={reportData} />).toBlob();
-    handleShare(pdfBlob, authorName);
+    handleShare(pdfBlob, author);
   } else {
     alert("Please provide an author name before sharing.");
   }
