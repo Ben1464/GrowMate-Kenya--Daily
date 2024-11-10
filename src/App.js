@@ -57,7 +57,7 @@ const generateInitialSales = () => {
 // Validation Schema using Yup
 const ReportSchema = Yup.object().shape({
   date: Yup.string().required('Required'),
-  author: Yup.string().required('Required'),
+  authorName: Yup.string().required('Required'),
   marketingActivities: Yup.string().required('Marketing Activities are required'),
   competitiveAnalysis: Yup.string().required('Competitive Analysis is required'),
   issues: Yup.string().required('Issues and Challenges are required'),
@@ -106,7 +106,7 @@ const ReportPDF = ({ values }) => {
       <Page style={styles.body}>
         <Text style={styles.header}>Daily Sales Report</Text>
         <Text style={styles.header}>Date: {values.date}</Text>
-        <Text style={styles.header}>Staff: {values.author}</Text>
+        <Text style={styles.header}>Staff: {values.authorName}</Text>
         <Text style={styles.section}>Target: {target.toLocaleString('en-US', { style: 'currency', currency: 'Ksh' })}</Text>
         <Text style={styles.section}>Percentage Target Achieved: {percentageAchieved}%</Text>
         <Text style={styles.section}>Sales Summary</Text>
@@ -227,7 +227,7 @@ const sharePDF = async () => {
       <Formik
         initialValues={{
           date: '',
-          author: '',
+          authorName: '',
           target: '',
           marketingActivities: '',
           competitiveAnalysis: '',
