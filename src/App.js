@@ -106,7 +106,7 @@ const ReportPDF = ({ values }) => {
       <Page style={styles.body}>
         <Text style={styles.header}>Daily Sales Report</Text>
         <Text style={styles.header}>Date: {values.date}</Text>
-        <Text style={styles.header}>Staff: {values.authorName}</Text>
+        <Text style={styles.header}>Staff: {values.author}</Text>
         <Text style={styles.section}>Target: {target.toLocaleString('en-US', { style: 'currency', currency: 'Ksh' })}</Text>
         <Text style={styles.section}>Percentage Target Achieved: {percentageAchieved}%</Text>
         <Text style={styles.section}>Sales Summary</Text>
@@ -181,10 +181,10 @@ const DailyReportApp = () => {
 const [author, setAuthor] = useState("");
 
 // `handleShare` function remains the same
-const handleShare = async (blob, authorName) => {
+const handleShare = async (blob, author) => {
   if (navigator.share && blob) {
     const formattedDate = new Date().toLocaleDateString('en-GB').replace(/\//g, '-'); // Format: DD-MM-YYYY
-    const fileName = `${authorName}_SalesReport_${formattedDate}.pdf`; // Dynamic filename
+    const fileName = `${author}_SalesReport_${formattedDate}.pdf`; // Dynamic filename
 
     const file = new File([blob], fileName, { type: "application/pdf" });
 
