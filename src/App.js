@@ -57,7 +57,7 @@ const generateInitialSales = () => {
 // Validation Schema using Yup
 const ReportSchema = Yup.object().shape({
   date: Yup.string().required('Required'),
-  author: Yup.string().required('Required'),
+  authorName: Yup.string().required('Required'),
   marketingActivities: Yup.string().required('Marketing Activities are required'),
   competitiveAnalysis: Yup.string().required('Competitive Analysis is required'),
   issues: Yup.string().required('Issues and Challenges are required'),
