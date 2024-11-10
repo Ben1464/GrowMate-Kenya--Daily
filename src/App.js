@@ -213,12 +213,12 @@ const sharePDF = async () => {
 };
 
 // Example of how `authorName` might be set (e.g., in a form)
-/* <input
+ <input
   type="text"
   placeholder="Enter Author Name"
-  value={authorName}
-  onChange={(e) => setAuthorName(e.target.value)}
-/> */
+  value={author}
+  onChange={(e) => setAuthor(e.target.value)}
+/> 
 
 
   return (
