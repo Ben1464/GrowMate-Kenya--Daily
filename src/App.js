@@ -206,7 +206,7 @@ const handleShare = async (blob, author) => {
 const sharePDF = async () => {
   if (reportData && author) { // Ensure `authorName` is available
     const pdfBlob = await pdf(<ReportPDF values={reportData} />).toBlob();
-    handleShare(pdfBlob, {author});
+    handleShare(pdfBlob, author);
   } else {
     alert("Please provide an author name before sharing.");
   }
