@@ -182,9 +182,14 @@ const DailyReportApp = () => {
 
 // `handleShare` function remains the same
 const handleShare = async (blob, author) => {
+  if (!author) {
+    alert("Please provide an author name before sharing.");
+    return;
+  }
+
   if (navigator.share && blob) {
     const formattedDate = new Date().toLocaleDateString('en-GB').replace(/\//g, '-'); // Format: DD-MM-YYYY
-    const fileName = `<span class="math-inline">\{author\}\_SalesReport\_</span>{formattedDate}.pdf`; // Dynamic filename
+    const fileName = `${author}_SalesReport_${formattedDate}.pdf`; // Dynamic filename
 
     const file = new File([blob], fileName, { type: "application/pdf" });
 
@@ -201,6 +206,7 @@ const handleShare = async (blob, author) => {
     alert("Sharing not supported on this browser.");
   }
 };
+
 
 const sharePDF = async () => {
   if (reportData && reportData.author) { // Check if author name is present
