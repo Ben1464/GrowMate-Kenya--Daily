@@ -1,6 +1,6 @@
 {
-  "name": "Daily report",
-  "short_name": "Daily report",
+  "name": "Reportly",
+  "short_name": "Reportly",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#ffffff",
