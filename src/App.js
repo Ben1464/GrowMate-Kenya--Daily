@@ -227,7 +227,7 @@ const sharePDF = async () => {
       <Formik
         initialValues={{
           date: '',
-          authorName: '',
+          author: '',
           target: '',
           marketingActivities: '',
           competitiveAnalysis: '',
