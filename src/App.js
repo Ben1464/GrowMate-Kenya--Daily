@@ -158,7 +158,7 @@ const styles = StyleSheet.create({
 const DailyReportApp = () => {
   const [reportData, setReportData] = useState(null);
   const [selectedProduct, setSelectedProduct] = useState({});
-  const [author, setAuthor] = useState("");
+  // const [author, setAuthor] = useState("");
   const calculateTotalSales = (values) => {
     let total = 0;
     Object.keys(categories).forEach((category) => {
