@@ -158,7 +158,7 @@ const styles = StyleSheet.create({
 const DailyReportApp = () => {
   const [reportData, setReportData] = useState(null);
   const [selectedProduct, setSelectedProduct] = useState({});
-
+  const [author, setAuthor] = useState("");
   const calculateTotalSales = (values) => {
     let total = 0;
     Object.keys(categories).forEach((category) => {
@@ -178,13 +178,13 @@ const DailyReportApp = () => {
   };
 
  // Assuming `authorName` is defined as a state variable from user input
-const [author, setAuthor] = useState("");
+
 
 // `handleShare` function remains the same
 const handleShare = async (blob, author) => {
   if (navigator.share && blob) {
     const formattedDate = new Date().toLocaleDateString('en-GB').replace(/\//g, '-'); // Format: DD-MM-YYYY
-    const fileName = `${author}_SalesReport_${formattedDate}.pdf`; // Dynamic filename
+    const fileName = `<span class="math-inline">\{author\}\_SalesReport\_</span>{formattedDate}.pdf`; // Dynamic filename
 
     const file = new File([blob], fileName, { type: "application/pdf" });
 
@@ -204,7 +204,7 @@ const handleShare = async (blob, author) => {
 
 // `sharePDF` now explicitly receives `authorName`
 const sharePDF = async () => {
-  if (reportData && author) { // Ensure `authorName` is available
+  if (reportData && author) { // Ensure both data and author name are available
     const pdfBlob = await pdf(<ReportPDF values={reportData} />).toBlob();
     handleShare(pdfBlob, author);
   } else {
