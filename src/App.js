@@ -57,7 +57,7 @@ const generateInitialSales = () => {
 // Validation Schema using Yup
 const ReportSchema = Yup.object().shape({
   date: Yup.string().required('Required'),
-  author: Yup.string().required('Required'),
+  author: Yup.string().required('Author name is required'),
   marketingActivities: Yup.string().required('Marketing Activities are required'),
   competitiveAnalysis: Yup.string().required('Competitive Analysis is required'),
   issues: Yup.string().required('Issues and Challenges are required'),
@@ -202,11 +202,10 @@ const handleShare = async (blob, author) => {
   }
 };
 
-// `sharePDF` now explicitly receives `authorName`
 const sharePDF = async () => {
-  if (reportData && author) { // Ensure both data and author name are available
+  if (reportData && reportData.author) { // Check if author name is present
     const pdfBlob = await pdf(<ReportPDF values={reportData} />).toBlob();
-    handleShare(pdfBlob, author);
+    handleShare(pdfBlob, reportData.author);
   } else {
     alert("Please provide an author name before sharing.");
   }
@@ -249,10 +248,10 @@ const sharePDF = async () => {
               <ErrorMessage name="date" component="div" />
             </div>
             <div>
-        <label>Staff Name:</label>
-        <Field type="text" name="author" />
-        <ErrorMessage name="author" component="div" />
-         </div>
+     <label>Staff Name:</label>
+     <Field type="text" name="author" />
+     <ErrorMessage name="author" component="div" />
+     </div>
             <div>
               <label>Target:</label>
               <Field type="number" name="target" />
