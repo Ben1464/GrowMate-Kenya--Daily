@@ -25,9 +25,10 @@ const categories = {
   Nutrition: {
     Okinawo: { unit: 'mls', packSizes: [100, 250, 500, '1ltr'] },
     Seagold: { unit: 'mls', packSizes: [100, 250, 500, '1ltr'] },
-    Zincbomate: { unit: 'mls', packSizes: [100, 250, 500, '1ltr'] },
-    Calcibora: { unit: 'mls', packSizes: [100, 250, 500, '1ltr'] },
-    Boroking: { unit: 'mls', packSizes: [100, 250, 500, '1ltr'] },
+    Zincbomate: { unit: 'mls', packSizes: [250, 500, '1ltr'] },
+    Zincamino: { unit: 'mls', packSizes: [250, 500, '1ltr'] },
+    Calcibora: { unit: 'mls', packSizes: [250, 500, '1ltr'] },
+    Boroking: { unit: 'mls', packSizes: [250, 500, '1ltr'] },
     Growspeed: { unit: 'mls', packSizes: [100, 250, 500, '1ltr'] },
   },
   Adjuvant: {
@@ -36,6 +37,7 @@ const categories = {
   Herbicides: {
     Mineposat: { unit: 'mls', packSizes: [500, '1ltr'] },
     Bentagrow: { unit: 'mls', packSizes: [500, '1ltr'] },
+    Maizeron: { unit: 'mls', packSizes: ['1ltr','5ltr', '10ltr', '20ltr'] },
   },
 };
 
