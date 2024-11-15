@@ -264,7 +264,7 @@ const sharePDF = async () => {
               <ErrorMessage name="target" component="div" />
             </div>
             <div>
-              <h3>Select Category and Product</h3>
+              <h3>Select Product</h3>
               {Object.keys(categories).map((category) => (
                 <div key={category}>
                   <h4>{category}</h4>
@@ -315,7 +315,7 @@ const sharePDF = async () => {
             )}
 
             <div>
-              <h3>Other Report Details</h3>
+              <h3>Other Reports</h3>
               <div>
                 <label>Marketing Activities:</label>
                 <Field as="textarea" name="marketingActivities" />
@@ -338,7 +338,7 @@ const sharePDF = async () => {
               </div>
             </div>
 
-            <button type="submit">Generate Daily Report</button>
+            <button type="submit">Generate Report</button>
       {reportData && (
         <>
           {/* Share icon instead of button */}
