@@ -108,8 +108,8 @@ const ReportPDF = ({ values }) => {
       <Page style={styles.body}>
         <Text style={styles.header}>Daily Sales Report</Text>
         <Text style={styles.header}>Date: {values.date}</Text>
-        <Text style={styles.header}>Staff: {values.author}</Text>
-        <Text style={styles.section}>Target: {target.toLocaleString('en-US', { style: 'currency', currency: 'Ksh' })}</Text>
+        <Text style={styles.header}>Staff: {values.author || 'Enter your name'} </Text>
+        <Text style={styles.section}>Target: {target ? target.toLocaleString('en-US', { style: 'currency', currency: 'Ksh' }) : 'Enter amount'}</Text>
         <Text style={styles.section}>Percentage Target Achieved: {percentageAchieved}%</Text>
         <Text style={styles.section}>Sales Summary</Text>
         <View style={styles.table}>
@@ -135,7 +135,7 @@ const ReportPDF = ({ values }) => {
         <Text style={styles.section}>Total Sales: {totalSales.toLocaleString('en-US', { style: 'currency', currency: 'Ksh' })}</Text>
         <Text style={styles.section}>Marketing Activities</Text>
         <Text>{values.marketingActivities}</Text>
-        <Text style={styles.section}>Competitive Analysis</Text>
+        <Text style={styles.section}>Competition Analysis</Text>
         <Text>{values.competitiveAnalysis}</Text>
         <Text style={styles.section}>Issues and Challenges</Text>
         <Text>{values.issues}</Text>
