@@ -324,7 +324,7 @@ const sharePDF = async () => {
                 <ErrorMessage name="marketingActivities" component="div" />
               </div>
               <div>
-                <label>Competitive Analysis:</label>
+                <label>Competition Analysis:</label>
                 <Field as="textarea" name="competitiveAnalysis" />
                 <ErrorMessage name="competitiveAnalysis" component="div" />
               </div>
