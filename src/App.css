@@ -11,7 +11,7 @@ h1 {
   padding: 10px;
     margin: 10px;
     height: 150px; /* Fixed height for the footer */
-    max-width: 1250px;
+    max-width: 1300px;
     background-image: url('/public/images/landing\ page.jpg');
     background-size: cover; /* This makes the background image cover the entire element */
     background-position: center; /* This centers the background image */
