@@ -6,6 +6,7 @@ import './App.css';
 import { pdf } from '@react-pdf/renderer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShareAlt } from '@fortawesome/free-solid-svg-icons';
+import Image from '../public/images/logo.jpeg';
 
 
 
@@ -106,6 +107,7 @@ const ReportPDF = ({ values }) => {
   return (
     <Document>
       <Page style={styles.body}>
+        <Image src="/path/to/logo.png" style={styles.logo} />
         <Text style={styles.header}>Daily Sales Report</Text>
         <Text style={styles.header}>Date: {values.date}</Text>
         <Text style={styles.header}>Staff: {values.author || 'Enter your name'} </Text>
