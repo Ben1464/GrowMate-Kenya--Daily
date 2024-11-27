@@ -262,12 +262,12 @@ const sharePDF = async () => {
             </div>
             <div>
      <label>Staff Name:</label>
-     <Field type="text" name="author" placeholder="Enter your name.." />
+     <Field type="text" name="author" placeholder="Enter name.." />
      <ErrorMessage name="author" component="div" />
      </div>
             <div>
               <label>Target:</label>
-              <Field type="number" name="target"placeholder="Enter your today's target, eg 200,000." />
+              <Field type="number" name="target"placeholder="Enter daily target" />
               <ErrorMessage name="target" component="div" />
             </div>
             <div>
@@ -325,22 +325,22 @@ const sharePDF = async () => {
               <h3>Other Reports</h3>
               <div>
                 <label>Marketing Activities:</label>
-                <Field as="textarea" name="marketingActivities" placeholder="List marketing activities you engaged in today.." />
+                <Field as="textarea" name="marketingActivities" placeholder="List marketing activities engaged in.." />
                 <ErrorMessage name="marketingActivities" component="div" />
               </div>
               <div>
                 <label>Competition Analysis:</label>
-                <Field as="textarea" name="competitiveAnalysis" placeholder="List any competition you encountered today and their activity.." />
+                <Field as="textarea" name="competitiveAnalysis" placeholder="List any competition activities.." />
                 <ErrorMessage name="competitiveAnalysis" component="div" />
               </div>
               <div>
                 <label>Challenges Faced:</label>
-                <Field as="textarea" name="issues"placeholder="List any challenges you faced today.." />
+                <Field as="textarea" name="issues"placeholder="Challanges faced.." />
                 <ErrorMessage name="issues" component="div" />
               </div>
               <div>
                 <label>Upcoming Actions:</label>
-                <Field as="textarea" name="upcomingActions" placeholder="List all upcoming actions/activities you plan to take tomorrow.." />
+                <Field as="textarea" name="upcomingActions" placeholder="Upcomming actions/activities.." />
                 <ErrorMessage name="upcomingActions" component="div" />
               </div>
             </div>
