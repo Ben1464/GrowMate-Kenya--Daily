@@ -32,13 +32,16 @@ const categories = {
     Boroking: { unit: 'mls', packSizes: [250, 500, '1ltr'] },
     Growspeed: { unit: 'mls', packSizes: [100, 250, 500, '1ltr'] },
   },
-  Adjuvant: {
-    Polysil: { unit: 'mls', packSizes: [25, 50, 100, 250, '1ltr'] },
-  },
+  
   Herbicides: {
     Mineposat: { unit: 'mls', packSizes: [500, '1ltr'] },
     Bentagrow: { unit: 'mls', packSizes: [500, '1ltr'] },
     Maizeron: { unit: 'mls', packSizes: ['1ltr','5ltr', '10ltr', '20ltr'] },
+    Pendistar: { unit: 'mls', packSizes: ['1ltr'] },
+    Broadguard: { unit: 'mls', packSizes: ['100mls','500mls', '1ltr'] },
+  },
+  Adjuvant: {
+    Polysil: { unit: 'mls', packSizes: [25, 50, 100, 250, '1ltr'] },
   },
 };
 
