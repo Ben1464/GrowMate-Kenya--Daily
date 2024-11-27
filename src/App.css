@@ -45,7 +45,7 @@ h4 {
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
-  background: linear-gradient(45deg, #fbc02d, #ffeb3b);
+  background: #DDEDE4;
 
 
 
@@ -83,7 +83,7 @@ textarea {
 }
 
 button {
-  background-color: #73fc03;
+  background-color: #FDFBE5;
   color:black;
   border: none;
   padding: 12px 20px;
