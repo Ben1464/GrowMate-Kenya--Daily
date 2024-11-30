@@ -336,7 +336,7 @@ const sharePDF = async () => {
               </div>
               <div>
                 <label>Challenges Faced:</label>
-                <Field as="textarea" name="issues"placeholder=" Outline challanges faced.." />
+                <Field as="textarea" name="issues"placeholder="Outline challanges faced.." />
                 <ErrorMessage name="issues" component="div" />
               </div>
               <div>
