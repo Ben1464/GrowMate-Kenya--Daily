@@ -263,12 +263,12 @@ const sharePDF = async () => {
             </div>
             <div>
      <label>Staff Name:</label>
-     <Field type="text" name="author" placeholder="John Doe.." />
+     <Field type="text" name="author" placeholder=" Enter your name.." />
      <ErrorMessage name="author" component="div" />
      </div>
             <div>
               <label> Daily Target:</label>
-              <Field type="number" name="target"placeholder=" eg 200,000 .." />
+              <Field type="number" name="target"placeholder=" eg 400,000 .." />
               <ErrorMessage name="target" component="div" />
             </div>
             <div>
@@ -336,12 +336,12 @@ const sharePDF = async () => {
               </div>
               <div>
                 <label>Challenges Faced:</label>
-                <Field as="textarea" name="issues"placeholder="Challanges faced.." />
+                <Field as="textarea" name="issues"placeholder=" Outline challanges faced.." />
                 <ErrorMessage name="issues" component="div" />
               </div>
               <div>
                 <label>Upcoming Actions:</label>
-                <Field as="textarea" name="upcomingActions" placeholder="Upcomming actions/activities.." />
+                <Field as="textarea" name="upcomingActions" placeholder="Following day actions/activities.." />
                 <ErrorMessage name="upcomingActions" component="div" />
               </div>
             </div>
