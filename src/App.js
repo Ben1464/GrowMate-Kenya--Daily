@@ -138,14 +138,15 @@ const ReportPDF = ({ values }) => {
           ))}
         </View>
         <Text style={styles.section}>Total Sales: {totalSales.toLocaleString('en-US', { style: 'currency', currency: 'Ksh' })}</Text>
-        <Text style={[styles.section, { fontWeight: 'bold' }]}>Marketing Activities</Text>
-        <Text>{values.marketingActivities}</Text>
-        <Text style={styles.section}>Competition Analysis</Text>
-        <Text>{values.competitiveAnalysis}</Text>
-        <Text style={styles.section}>Issues and Challenges</Text>
-        <Text>{values.issues}</Text>
-        <Text style={styles.section}>Upcoming Actions</Text>
-        <Text>{values.upcomingActions}</Text>
+        <Text style={styles.section}>Marketing Activities</Text>
+<Text style={styles.sectionContent}>{values.marketingActivities}</Text>
+<Text style={styles.section}>Competition Analysis</Text>
+<Text style={styles.sectionContent}>{values.competitiveAnalysis}</Text>
+<Text style={styles.section}>Issues and Challenges</Text>
+<Text style={styles.sectionContent}>{values.issues}</Text>
+<Text style={styles.section}>Upcoming Actions</Text>
+<Text style={styles.sectionContent}>{values.upcomingActions}</Text>
+
       </Page>
     </Document>
   );

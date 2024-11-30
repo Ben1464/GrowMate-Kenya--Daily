@@ -9,23 +9,22 @@ body {
 
 h1 {
   padding: 5px;
-    margin: 5px;
-    height: 150px; /* Fixed height for the footer */
-    max-width: 1300px;
-    background-image: url('/public/images/landing\ page.jpg');
-    background-size: cover; /* This makes the background image cover the entire element */
-    background-position: center; /* This centers the background image */
-    background-repeat: no-repeat; /* This prevents the image from repeating */
-    border-radius: 6px;
-    color: #bdbdbd; /* Dark gray text color */
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-    font-size: 24px;
-    /* font-family: sans-serif; */
-    box-shadow: 0 0 5px #848682;;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  margin: 5px;
+  height: 150px; /* Fixed height for the footer */
+  max-width: 1300px;
+  background-image: url('/public/images/landing\ page.jpg');
+  background-size: cover; /* This makes the background image cover the entire element */
+  background-position: center; /* This centers the background image */
+  background-repeat: no-repeat; /* This prevents the image from repeating */
+  border-radius: 6px;
+  color: #bdbdbd; /* Dark gray text color */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  font-size: 24px;
+  box-shadow: 0 0 5px #848682;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
 h3 {
@@ -46,12 +45,28 @@ h4 {
   margin: 0 auto;
   padding: 20px;
   background: #DDEDE4;
-
-
-
   border-radius: 10px;
   box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
   margin-top: 20px;
+}
+
+/* Section Styling */
+.section {
+  font-size: 24px; /* Larger font size for headers */
+  font-weight: bold; /* Bold text for emphasis */
+  color: #1ec732; /* Green text color to match the earlier design */
+  margin-top: 20px; /* Space above each section */
+  margin-bottom: 10px; /* Space below each section */
+  text-transform: uppercase; /* Makes the header text uppercase */
+  border-bottom: 2px solid #1ec732; /* Green underline for separation */
+  padding-bottom: 5px; /* Adds some spacing between text and underline */
+}
+
+.sectionContent {
+  font-size: 18px; /* Standard size for body text */
+  color: #333333; /* Dark gray text color for readability */
+  margin-bottom: 15px; /* Space below each content block */
+  line-height: 1.6; /* Line height for better readability */
 }
 
 /* Styling Form Fields */
@@ -84,7 +99,7 @@ textarea {
 
 button {
   background-color: #FDFBE5;
-  color:black;
+  color: black;
   border: none;
   padding: 12px 20px;
   font-size: 1.2rem;
@@ -121,17 +136,6 @@ button:hover {
   background-color: #73fc03;
   color: white;
   box-shadow: 0 5px 15px rgba(0, 102, 153, 0.2);
-}
-
-button {
-  padding: 12px 24px;
-  border-radius: 5px;
-  transition: 0.3s ease;
-}
-
-button:hover {
-  background-color: #73fc03;
-  transform: translateY(-2px);
 }
 
 /* Table for Report Summary */
