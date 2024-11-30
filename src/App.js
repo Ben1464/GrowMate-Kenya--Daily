@@ -138,7 +138,7 @@ const ReportPDF = ({ values }) => {
           ))}
         </View>
         <Text style={styles.section}>Total Sales: {totalSales.toLocaleString('en-US', { style: 'currency', currency: 'Ksh' })}</Text>
-        <Text style={styles.section}>Marketing Activities</Text>
+        <Text style={[styles.section, { fontWeight: 'bold' }]}>Marketing Activities</Text>
         <Text>{values.marketingActivities}</Text>
         <Text style={styles.section}>Competition Analysis</Text>
         <Text>{values.competitiveAnalysis}</Text>
