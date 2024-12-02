@@ -185,11 +185,7 @@ const DailyReportApp = () => {
     setSelectedProduct({ category, product });
   };
 
- // Assuming `authorName` is defined as a state variable from user input
-
-
-// `handleShare` function remains the same
-const handleShare = async (blob, author) => {
+ const handleShare = async (blob, author) => {
   if (!author) {
     alert("Please provide an author name before sharing.");
     return;
@@ -225,13 +221,6 @@ const sharePDF = async () => {
   }
 };
 
-// Example of how `authorName` might be set (e.g., in a form)
-//  <input
-//   type="text"
-//   placeholder="Enter Author Name"
-//   value={author}
-//   onChange={(e) => setAuthor(e.target.value)}
-// /> 
 
 
   return (
@@ -336,7 +325,7 @@ const sharePDF = async () => {
               </div>
               <div>
                 <label>Challenges Faced:</label>
-                <Field as="textarea" name="issues"placeholder="Outline challanges faced.." />
+                <Field as="textarea" name="issues"placeholder="Outline any challanges faced.." />
                 <ErrorMessage name="issues" component="div" />
               </div>
               <div>
@@ -349,21 +338,21 @@ const sharePDF = async () => {
             <button type="submit">Generate Report</button>
       {reportData && (
         <>
-          {/* Share icon instead of button */}
+          
           <FontAwesomeIcon
             icon={faShareAlt}
-            onClick={() => sharePDF(values)} // Pass the form values directly
+            onClick={() => sharePDF(values)}
             style={{
               cursor: 'pointer',
               fontSize: '28px',
               marginLeft: '10px',
-              color: '#4CAF50', // Adds a green color to make it more noticeable
+              color: '#4CAF50', 
               transition: 'transform 0.3s ease, color 0.3s ease',
             }}
             title="Share Report"
-            onMouseEnter={(e) => (e.currentTarget.style.color = '#2E7D32')} // Darkens color on hover
+            onMouseEnter={(e) => (e.currentTarget.style.color = '#2E7D32')} 
             onMouseLeave={(e) => (e.currentTarget.style.color = '#4CAF50')}
-            onMouseDown={(e) => (e.currentTarget.style.transform = 'scale(0.9)')} // Adds a press effect
+            onMouseDown={(e) => (e.currentTarget.style.transform = 'scale(0.9)')} 
             onMouseUp={(e) => (e.currentTarget.style.transform = 'scale(1)')}
           />
         </>
