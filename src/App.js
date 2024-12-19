@@ -187,7 +187,7 @@ const DailyReportApp = () => {
 
  const handleShare = async (blob, author) => {
   if (!author) {
-    alert("Please provide an author name before sharing.");
+    alert("Please provide your name before sharing.");
     return;
   }
 
@@ -217,7 +217,7 @@ const sharePDF = async () => {
     const pdfBlob = await pdf(<ReportPDF values={reportData} />).toBlob();
     handleShare(pdfBlob, reportData.author);
   } else {
-    alert("Please provide an author name before sharing.");
+    alert("Please provide your name before sharing.");
   }
 };
 
@@ -320,12 +320,12 @@ const sharePDF = async () => {
               </div>
               <div>
                 <label>Competition Analysis:</label>
-                <Field as="textarea" name="competitiveAnalysis" placeholder="List any competition activities.." />
+                <Field as="textarea" name="competitiveAnalysis" placeholder="List competition activities.." />
                 <ErrorMessage name="competitiveAnalysis" component="div" />
               </div>
               <div>
                 <label>Challenges Faced:</label>
-                <Field as="textarea" name="issues"placeholder="Outline any challanges faced.." />
+                <Field as="textarea" name="issues"placeholder="Outline challanges faced.." />
                 <ErrorMessage name="issues" component="div" />
               </div>
               <div>
