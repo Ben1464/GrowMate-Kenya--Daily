@@ -252,12 +252,12 @@ const sharePDF = async () => {
             </div>
             <div>
      <label>Staff Name:</label>
-     <Field type="text" name="author" placeholder=" Enter your name.." />
+     <Field type="text" name="author" placeholder=" Enter your name.."style={{ fontStyle: 'italic' }} />
      <ErrorMessage name="author" component="div" />
      </div>
             <div>
               <label> Daily Target:</label>
-              <Field type="number" name="target"placeholder=" For example 400,000 .." />
+              <Field type="number" name="target"placeholder=" For example 400,000 .."style={{ fontStyle: 'italic' }} />
               <ErrorMessage name="target" component="div" />
             </div>
             <div>
@@ -315,22 +315,22 @@ const sharePDF = async () => {
               <h3>Other Reports</h3>
               <div>
                 <label>Marketing Activities:</label>
-                <Field as="textarea" name="marketingActivities" placeholder="List marketing activities engaged in.." />
+                <Field as="textarea" name="marketingActivities" placeholder="List marketing activities engaged in.."style={{ fontStyle: 'italic' }} />
                 <ErrorMessage name="marketingActivities" component="div" />
               </div>
               <div>
                 <label>Competition Analysis:</label>
-                <Field as="textarea" name="competitiveAnalysis" placeholder="List competition activities.." />
+                <Field as="textarea" name="competitiveAnalysis" placeholder="List competition activities.."style={{ fontStyle: 'italic' }} />
                 <ErrorMessage name="competitiveAnalysis" component="div" />
               </div>
               <div>
                 <label>Challenges Faced:</label>
-                <Field as="textarea" name="issues"placeholder="Outline challanges faced.." />
+                <Field as="textarea" name="issues"placeholder="Outline challanges faced.."style={{ fontStyle: 'italic' }} />
                 <ErrorMessage name="issues" component="div" />
               </div>
               <div>
                 <label>Upcoming Actions:</label>
-                <Field as="textarea" name="upcomingActions" placeholder="Following day actions/activities.." />
+                <Field as="textarea" name="upcomingActions" placeholder="Following day actions/activities.." style={{ fontStyle: 'italic' }}/>
                 <ErrorMessage name="upcomingActions" component="div" />
               </div>
             </div>
