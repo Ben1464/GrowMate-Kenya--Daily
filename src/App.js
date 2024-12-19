@@ -257,7 +257,7 @@ const sharePDF = async () => {
      </div>
             <div>
               <label> Daily Target:</label>
-              <Field type="number" name="target"placeholder=" eg 400,000 .." />
+              <Field type="number" name="target"placeholder=" For example 400,000 .." />
               <ErrorMessage name="target" component="div" />
             </div>
             <div>
