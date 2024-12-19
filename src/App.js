@@ -225,7 +225,7 @@ const sharePDF = async () => {
 
   return (
     <div className="App">
-      <h1>Daily Sales Report</h1>
+      <h1>.</h1>
       <Formik
         initialValues={{
           date: '',
