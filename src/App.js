@@ -13,15 +13,15 @@ import { faShareAlt } from '@fortawesome/free-solid-svg-icons';
 // Define Categories, Products, Pack Sizes, and Units
 const categories = {
   Insecticides: {
-    Growprid: { unit: 'gms', packSizes: [5, 10, 25, 50, 100, '1kg'] },
-    Timecarb: { unit: 'mls', packSizes: [25, 50, 100, 250, '1ltr'] },
-    Spirometer: { unit: 'mls', packSizes: [50, 100, 250, '1ltr'] },
+    Growprid: { unit: 'gms', packSizes: [ 25, 50, '1kg'] },
+    Timecarb: { unit: 'mls', packSizes: [25, 50, 100,'1ltr'] },
+    Spirometer: { unit: 'mls', packSizes: [50, 100, '1ltr'] },
     Emagurd: { unit: 'mls', packSizes: [25, 50, 100, 250, '1ltr'] },
   },
   Fungicides: {
     Pyraccop: { unit: 'mls', packSizes: [50, 100, 250, '1ltr'] },
     Azokon: { unit: 'mls', packSizes: [50, 100, 250, '1ltr'] },
-    Manlaxy: { unit: 'gms', packSizes: [50, 100, 250, 500, '1kg'] },
+    Manlaxy: { unit: 'gms', packSizes: [50, 100, 250, 500, '1kg', '5kgs'] },
   },
   Nutrition: {
     Okinawo: { unit: 'mls', packSizes: [100, 250, 500, '1ltr'] },
