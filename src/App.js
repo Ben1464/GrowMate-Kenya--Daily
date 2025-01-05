@@ -34,9 +34,9 @@ const categories = {
   },
   
   Herbicides: {
-    Mineposat: { unit: 'mls', packSizes: [500, '1ltr'] },
-    Bentagrow: { unit: 'mls', packSizes: [500, '1ltr'] },
-    Maizeron: { unit: 'mls', packSizes: ['1ltr','5ltr', '10ltr', '20ltr'] },
+    Mineposat: { unit: 'mls', packSizes: [500, '1ltr','20ltrs'] },
+    // Bentagrow: { unit: 'mls', packSizes: [500, '1ltr'] },
+    Maizeron: { unit: 'mls', packSizes: ['1ltr',] },
     Pendistar: { unit: 'mls', packSizes: ['1ltr'] },
     Broadguard: { unit: 'mls', packSizes: ['100mls','500mls', '1ltr'] },
   },
