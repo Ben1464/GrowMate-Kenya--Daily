@@ -13,18 +13,18 @@ import { faShareAlt } from '@fortawesome/free-solid-svg-icons';
 // Define Categories, Products, Pack Sizes, and Units
 const categories = {
   Insecticides: {
-    Growprid: { unit: 'gms', packSizes: [ 25, 50, '1kg'] },
-    Timecarb: { unit: 'mls', packSizes: [25, 50, 100,'1ltr'] },
-    Spirometer: { unit: 'mls', packSizes: [50, 100, '1ltr'] },
-    Emagurd: { unit: 'mls', packSizes: [25, 50, 100, 250, '1ltr'] },
+    "Growprid 700 WDG": { unit: 'gms', packSizes: [ 25, 50, '1kg'] },
+    "Timecarb 340 SC": { unit: 'mls', packSizes: [25, 50, 100,'1ltr'] },
+    "Spirometer 500 SC": { unit: 'mls', packSizes: [50, 100, '1ltr'] },
+    "Emagurd 57 ME": { unit: 'mls', packSizes: [25, 50, 100, 250, '1ltr'] },
   },
   Fungicides: {
-    Pyraccop: { unit: 'mls', packSizes: [50, 100, 250, '1ltr'] },
-    Azokon: { unit: 'mls', packSizes: [50, 100, 250, '1ltr'] },
-    Manlaxy: { unit: 'gms', packSizes: [50, 100, 250, 500, '1kg', '5kgs'] },
+    "Pyraccop 400 SC": { unit: 'mls', packSizes: [50, 100, 250, '1ltr'] },
+    "Azokon 400 SC": { unit: 'mls', packSizes: [50, 100, 250, '1ltr'] },
+    "Manlaxy 680 WG": { unit: 'gms', packSizes: [50, 100, 250, 500, '1kg', '5kgs'] },
   },
   Nutrition: {
-    Okinawo: { unit: 'mls', packSizes: [100, 250, 500, '1ltr'] },
+    "Okinawo Gold Fruit": { unit: 'mls', packSizes: [100, 250, 500, '1ltr'] },
     Seagold: { unit: 'mls', packSizes: [100, 250, 500, '1ltr'] },
     Zincbomate: { unit: 'mls', packSizes: [250, 500, '1ltr'] },
     Zincamino: { unit: 'mls', packSizes: [250, 500, '1ltr'] },
@@ -34,11 +34,11 @@ const categories = {
   },
   
   Herbicides: {
-    Mineposat: { unit: 'mls', packSizes: [500, '1ltr','20ltrs'] },
+    "Mineposat 500 SL": { unit: 'mls', packSizes: [500, '1ltr','20ltrs'] },
     // Bentagrow: { unit: 'mls', packSizes: [500, '1ltr'] },
-    Maizeron: { unit: 'mls', packSizes: ['1ltr',] },
-    Pendistar: { unit: 'mls', packSizes: ['1ltr'] },
-    Broadguard: { unit: 'mls', packSizes: ['100mls','500mls', '1ltr'] },
+    "Maizeron 300 SE": { unit: 'mls', packSizes: ['1ltr',] },
+    "Pendistar 450 CS": { unit: 'mls', packSizes: ['1ltr'] },
+    "Broadguard 200 EC": { unit: 'mls', packSizes: ['100mls','500mls', '1ltr'] },
   },
   Adjuvant: {
     Polysil: { unit: 'mls', packSizes: [25, 50, 100, 250, '1ltr'] },
