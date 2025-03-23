@@ -14,29 +14,29 @@ import { faShareAlt } from '@fortawesome/free-solid-svg-icons';
 const categories = {
   Insecticides: {
     "Growprid 700 WDG": { unit: 'gms', packSizes: [ 25, 50, '1kg'] },
-    "Timecarb 340 SC": { unit: 'mls', packSizes: [25, 50, 100,'1ltr'] },
+    // "Timecarb 340 SC": { unit: 'mls', packSizes: [25, 50, 100,'1ltr'] },
     "Spirometer 500 SC": { unit: 'mls', packSizes: [50, 100, '1ltr'] },
     "Emagurd 57 ME": { unit: 'mls', packSizes: [25, 50, 100, 250, '1ltr'] },
   },
   Fungicides: {
     "Pyraccop 400 SC": { unit: 'mls', packSizes: [50, 100, 250, '1ltr'] },
     "Azokon 400 SC": { unit: 'mls', packSizes: [50, 100, 250, '1ltr'] },
-    "Manlaxy 680 WG": { unit: 'gms', packSizes: [50, 100, 250, 500, '1kg', '5kgs'] },
+    // "Manlaxy 680 WG": { unit: 'gms', packSizes: [50, 100, 250, 500, '1kg', '5kgs'] },
   },
   Nutrition: {
     "Okinawo Gold Fruit": { unit: 'mls', packSizes: [100, 250, 500, '1ltr'] },
     Seagold: { unit: 'mls', packSizes: [100, 250, 500, '1ltr'] },
     Zincbomate: { unit: 'mls', packSizes: [250, 500, '1ltr'] },
-    Zincamino: { unit: 'mls', packSizes: [250, 500, '1ltr'] },
+    // Zincamino: { unit: 'mls', packSizes: [250, 500, '1ltr'] },
     Calcibora: { unit: 'mls', packSizes: [250, 500, '1ltr'] },
     Boroking: { unit: 'mls', packSizes: [250, 500, '1ltr'] },
     Growspeed: { unit: 'mls', packSizes: [100, 250, 500, '1ltr'] },
   },
   
   Herbicides: {
-    "Mineposat 500 SL": { unit: 'mls', packSizes: [500, '1ltr','20ltrs'] },
+    // "Mineposat 500 SL": { unit: 'mls', packSizes: [500, '1ltr','20ltrs'] },
     // Bentagrow: { unit: 'mls', packSizes: [500, '1ltr'] },
-    "Maizeron 300 SE": { unit: 'mls', packSizes: ['1ltr',] },
+    // "Maizeron 300 SE": { unit: 'mls', packSizes: ['1ltr',] },
     "Pendistar 450 CS": { unit: 'mls', packSizes: ['1ltr'] },
     "Broadguard 200 EC": { unit: 'mls', packSizes: ['100mls','500mls', '1ltr'] },
   },
