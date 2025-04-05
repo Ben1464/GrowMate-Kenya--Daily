@@ -21,7 +21,7 @@ const categories = {
   Fungicides: {
     "Pyraccop 400 SC": { unit: 'mls', packSizes: [50, 100, 250, '1ltr'] },
     "Azokon 400 SC": { unit: 'mls', packSizes: [50, 100, 250, '1ltr'] },
-    // "Manlaxy 680 WG": { unit: 'gms', packSizes: [50, 100, 250, 500, '1kg', '5kgs'] },
+    "Manlaxy 680 WG": { unit: 'gms', packSizes: [50, 100, 250, 500, '1kg', '5kgs'] },
   },
   Nutrition: {
     "Okinawo Gold Fruit": { unit: 'mls', packSizes: [100, 250, 500, '1ltr'] },
@@ -34,7 +34,7 @@ const categories = {
   },
   
   Herbicides: {
-    // "Mineposat 500 SL": { unit: 'mls', packSizes: [500, '1ltr','20ltrs'] },
+    "Mineposat 500 SL": { unit: 'mls', packSizes: [500, '1ltr','20ltrs'] },
     // Bentagrow: { unit: 'mls', packSizes: [500, '1ltr'] },
     // "Maizeron 300 SE": { unit: 'mls', packSizes: ['1ltr',] },
     "Pendistar 450 CS": { unit: 'mls', packSizes: ['1ltr'] },
