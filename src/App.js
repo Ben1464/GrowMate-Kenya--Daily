@@ -33,8 +33,8 @@ const categories = {
     Growspeed: { unit: 'mls', packSizes: [100, 250, 500, '1ltr'] },
   },
   
-  Herbicides: {
-    "Mineposat 500 SL": { unit: 'mls', packSizes: [500, '1ltr','20ltrs'] },
+  Herbicides: {"Maizeron 300 SE": { unit: 'mls', packSizes: ['1ltr',] },
+    // "Mineposat 500 SL": { unit: 'mls', packSizes: [500, '1ltr','20ltrs'] },
     // Bentagrow: { unit: 'mls', packSizes: [500, '1ltr'] },
     "Maizeron 300 SE": { unit: 'mls', packSizes: ['1ltr',] },
     "Pendistar 450 CS": { unit: 'mls', packSizes: ['1ltr'] },
