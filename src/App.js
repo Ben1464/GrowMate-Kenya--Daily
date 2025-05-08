@@ -112,7 +112,7 @@ const ReportPDF = ({ values }) => {
       <Page style={styles.body}>
         <image src= '../public/images/logo.jpeg'style={styles.logo} />
         <Text style={styles.header}>GrowMate Kenya Limited</Text>
-        <Text style={styles.header}>Daily Sales Report</Text>
+        <Text style={styles.header}>TSA Daily Sales Report</Text>
         <Text style={styles.header}>Date: {values.date}</Text>
         <Text style={styles.header}>Staff: {values.author || 'Enter your name'} </Text>
         <Text style={styles.section}>Daily Target: {target ? target.toLocaleString('en-US', { style: 'currency', currency: 'Ksh' }) : 'Enter amount'}</Text>
