@@ -199,3 +199,11 @@ button:hover {
     padding: 10px 5px;
   }
 }
+footer {
+  margin-top: 20;
+  padding-top: 10;
+  font-size: 10;
+  line-height: 1.5;
+  
+}
+

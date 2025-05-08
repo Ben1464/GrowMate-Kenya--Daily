@@ -147,6 +147,8 @@ const ReportPDF = ({ values }) => {
 <Text style={styles.sectionContent}>{values.issues}</Text>
 <Text style={styles.section}>Upcoming Actions</Text>
 <Text style={styles.sectionContent}>{values.upcomingActions}</Text>
+
+
 <View style={styles.footer}>
   <Text>Regards,</Text>
   <Text>Growmate Kenya Limited</Text>
@@ -154,9 +156,7 @@ const ReportPDF = ({ values }) => {
   <Text>Phone no. : +254 719 494 454</Text>
   <Text>E-Mail : info@growmate.ke</Text>
 </View>
-
-
-      </Page>
+ </Page>
     </Document>
   );
 };
