@@ -111,7 +111,7 @@ const ReportPDF = ({ values }) => {
     <Document>
       <Page style={styles.body}>
         <image src= '../public/images/logo.jpeg'style={styles.logo} />
-        <Text style={styles.header}>GrowMate Kenya LTD</Text>
+        <Text style={styles.header}>GrowMate Kenya Limited</Text>
         <Text style={styles.header}>Daily Sales Report</Text>
         <Text style={styles.header}>Date: {values.date}</Text>
         <Text style={styles.header}>Staff: {values.author || 'Enter your name'} </Text>
@@ -147,6 +147,14 @@ const ReportPDF = ({ values }) => {
 <Text style={styles.sectionContent}>{values.issues}</Text>
 <Text style={styles.section}>Upcoming Actions</Text>
 <Text style={styles.sectionContent}>{values.upcomingActions}</Text>
+<View style={styles.footer}>
+  <Text>Regards,</Text>
+  <Text>Growmate Kenya Limited</Text>
+  <Text>P.O Box 1624-20117 Naivasha</Text>
+  <Text>Phone no. : +254 719 494 454</Text>
+  <Text>E-Mail : info@growmate.ke</Text>
+</View>
+
 
       </Page>
     </Document>
