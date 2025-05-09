@@ -8,202 +8,236 @@ body {
 }
 
 h1 {
-  padding: 5px;
-  margin: 5px;
-  height: 150px; /* Fixed height for the footer */
+  padding: 20px;
+  margin: 20px auto;
+  height: 150px;
   max-width: 1300px;
   background-image: url('/public/images/landing\ page.jpg');
-  background-size: cover; /* This makes the background image cover the entire element */
-  background-position: center; /* This centers the background image */
-  background-repeat: no-repeat; /* This prevents the image from repeating */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   border-radius: 6px;
-  color: #bdbdbd; /* Dark gray text color */
+  color: white;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
-  font-size: 24px;
-  box-shadow: 0 0 5px #848682;
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-size: 32px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
 }
 
 h3 {
   font-size: 1.6rem;
-  color: #444;
-  margin-bottom: 1rem;
-  border-bottom: 2px solid #73fc03;
-  padding-bottom: 0.3rem;
+  color: #2c3e50;
+  margin-bottom: 1.5rem;
+  border-bottom: 2px solid #27ae60;
+  padding-bottom: 0.5rem;
 }
 
 h4 {
   font-size: 1.4rem;
-  color: #555;
+  color: #34495e;
+  margin: 1.2rem 0;
 }
 
 .App {
   max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
-  background: #DDEDE4;
+  margin: 20px auto;
+  padding: 30px;
+  background: white;
   border-radius: 10px;
-  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
-  margin-top: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
-/* Section Styling */
-.section {
-  font-size: 24px; /* Larger font size for headers */
-  font-weight: bold; /* Bold text for emphasis */
-  color: #1ec732; /* Green text color to match the earlier design */
-  margin-top: 20px; /* Space above each section */
-  margin-bottom: 10px; /* Space below each section */
-  text-transform: uppercase; /* Makes the header text uppercase */
-  border-bottom: 2px solid #1ec732; /* Green underline for separation */
-  padding-bottom: 5px; /* Adds some spacing between text and underline */
+/* Form Sections */
+.form-section {
+  margin-bottom: 25px;
+  padding: 20px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border: 1px solid #e1e4e8;
 }
 
-.sectionContent {
-  font-size: 18px; /* Standard size for body text */
-  color: #333333; /* Dark gray text color for readability */
-  margin-bottom: 15px; /* Space below each content block */
-  line-height: 1.6; /* Line height for better readability */
+.form-section:last-child {
+  margin-bottom: 0;
 }
 
-/* Styling Form Fields */
+/* Form Inputs */
 label {
   font-weight: 500;
   font-size: 1.1rem;
   margin-bottom: 0.5rem;
   display: block;
+  color: #2c3e50;
 }
 
-input, textarea, select {
+.form-input {
   width: 100%;
-  padding: 10px;
-  margin: 8px 0;
-  border-radius: 5px;
-  border: 1px solid #ccc;
+  padding: 12px;
+  margin: 8px 0 15px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
   font-size: 1rem;
   transition: all 0.3s;
+  box-sizing: border-box;
 }
 
-input:focus, textarea:focus, select:focus {
-  border-color: #73fc03;
-  box-shadow: 0 0 8px rgba(0, 102, 153, 0.1);
+.form-input:focus {
+  border-color: #27ae60;
+  box-shadow: 0 0 8px rgba(39, 174, 96, 0.2);
   outline: none;
 }
 
-textarea {
-  height: 100px;
+.form-textarea {
+  width: 100%;
+  height: 120px;
+  padding: 12px;
+  margin: 8px 0 15px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  font-size: 1rem;
+  resize: vertical;
+  transition: all 0.3s;
 }
 
-button {
-  background-color: #FDFBE5;
-  color: black;
-  border: none;
-  padding: 12px 20px;
-  font-size: 1.2rem;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-top: 20px;
-  transition: background-color 0.3s ease;
+.form-textarea:focus {
+  border-color: #27ae60;
+  box-shadow: 0 0 8px rgba(39, 174, 96, 0.2);
+  outline: none;
 }
 
-button:hover {
-  background-color: #73fc03;
+/* Product Selector */
+.product-selector {
+  margin: 20px 0;
 }
 
-/* Categories & Products Layout */
-.category-section {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+/* Product Details */
+.product-details-section {
+  margin: 25px 0;
+  padding: 20px;
+  background: #f0f7f4;
+  border-radius: 8px;
+  border: 1px solid #d0e6dd;
+}
+
+.pack-size-row {
   margin-bottom: 20px;
 }
 
-.category-section div {
-  background-color: #e8f1f7;
-  padding: 15px;
-  margin: 10px;
-  flex: 1;
-  text-align: center;
-  border-radius: 10px;
-  transition: all 0.3s ease;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+.pack-size-inputs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
 }
 
-.category-section div:hover {
-  background-color: #73fc03;
-  color: white;
-  box-shadow: 0 5px 15px rgba(0, 102, 153, 0.2);
-}
-
-/* Table for Report Summary */
-.table {
-  width: 100%;
-  margin-top: 20px;
-  border-collapse: collapse;
-}
-
-.tableRow {
+/* Form Actions */
+.form-actions {
   display: flex;
   justify-content: space-between;
-  border-bottom: 1px solid #ddd;
+  align-items: center;
+  margin-top: 30px;
 }
 
-.tableHeaderCell {
-  background-color: #73fc03;
+.submit-button {
+  background-color: #27ae60;
   color: white;
-  padding: 12px;
-  text-align: left;
-  font-weight: bold;
+  border: none;
+  padding: 14px 28px;
+  font-size: 1.1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s;
 }
 
-.tableCell {
-  padding: 12px;
-  text-align: left;
+.submit-button:hover {
+  background-color: #219653;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* PDF Download Link */
-.PDFDownloadLink {
-  text-align: center;
-  margin-top: 20px;
+.share-icon {
+  cursor: pointer;
+  font-size: 28px;
+  color: #27ae60;
+  transition: all 0.3s;
 }
 
-.PDFDownloadLink a {
-  color: white;
-  text-decoration: none;
-  padding: 10px 20px;
-  background-color: #73fc03;
-  border-radius: 5px;
-  font-size: 1.2rem;
-  transition: background-color 0.3s ease;
+.share-icon:hover {
+  color: #219653;
+  transform: scale(1.1);
 }
 
-.PDFDownloadLink a:hover {
-  background-color: #73fc03;
+/* Error Messages */
+.error-message {
+  color: #e74c3c;
+  font-size: 0.9rem;
+  margin-top: -10px;
+  margin-bottom: 15px;
+}
+
+/* React-Select Custom Styles */
+.react-select-container {
+  margin-bottom: 15px;
+}
+
+.react-select__control {
+  min-height: 48px;
+  border-radius: 6px !important;
+  border: 1px solid #ddd !important;
+  box-shadow: none !important;
+}
+
+.react-select__control--is-focused {
+  border-color: #27ae60 !important;
+  box-shadow: 0 0 8px rgba(39, 174, 96, 0.2) !important;
+}
+
+.react-select__menu {
+  z-index: 10;
+  border-radius: 6px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+}
+
+.react-select__option--is-focused {
+  background-color: #f0f7f4 !important;
+}
+
+.react-select__option--is-selected {
+  background-color: #27ae60 !important;
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .category-section {
-    flex-direction: column;
+  .App {
+    padding: 15px;
   }
 
-  .tableRow {
-    flex-direction: column;
+  .pack-size-inputs {
+    grid-template-columns: 1fr;
+    gap: 15px;
   }
 
-  .tableHeaderCell, .tableCell {
-    width: 100%;
-    padding: 10px 5px;
+  .form-actions {
+    flex-direction: column;
+    gap: 15px;
+  align-items: flex-start;
+  margin-top: 20px;
+  }
+
+  h1 {
+    font-size: 24px;
+    height: 100px;
+    padding: 15px;
   }
 }
+
+/* Footer */
 footer {
-  margin-top: 20;
-  padding-top: 10;
-  font-size: 10;
-  line-height: 1.5;
-  
+  margin-top: 30px;
+  padding-top: 20px;
+  font-size: 14px;
+  color: #7f8c8d;
+  text-align: center;
+  border-top: 1px solid #ecf0f1;
 }
-

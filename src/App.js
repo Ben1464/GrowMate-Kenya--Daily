@@ -6,15 +6,12 @@ import './App.css';
 import { pdf } from '@react-pdf/renderer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShareAlt } from '@fortawesome/free-solid-svg-icons';
-
-
-
+import Select from 'react-select';
 
 // Define Categories, Products, Pack Sizes, and Units
 const categories = {
   Insecticides: {
-    "Growprid 700 WDG": { unit: 'gms', packSizes: [ 25, 50, '1kg'] },
-    // "Timecarb 340 SC": { unit: 'mls', packSizes: [25, 50, 100,'1ltr'] },
+    "Growprid 700 WDG": { unit: 'gms', packSizes: [25, 50, '1kg'] },
     "Spirometer 500 SC": { unit: 'mls', packSizes: [50, 100, '1ltr'] },
     "Emagurd 57 ME": { unit: 'mls', packSizes: [25, 50, 100, 250, '1ltr'] },
   },
@@ -32,13 +29,10 @@ const categories = {
     Boroking: { unit: 'mls', packSizes: [250, 500, '1ltr'] },
     Growspeed: { unit: 'mls', packSizes: [100, 250, 500, '1ltr'] },
   },
-  
-  Herbicides: {"Maizeron 300 SE": { unit: 'mls', packSizes: ['1ltr',] },
-    // "Mineposat 500 SL": { unit: 'mls', packSizes: [500, '1ltr','20ltrs'] },
-    // Bentagrow: { unit: 'mls', packSizes: [500, '1ltr'] },
-    "Maizeron 300 SE": { unit: 'mls', packSizes: ['1ltr',] },
+  Herbicides: {
+    "Maizeron 300 SE": { unit: 'mls', packSizes: ['1ltr'] },
     "Pendistar 450 CS": { unit: 'mls', packSizes: ['1ltr'] },
-    "Broadguard 200 EC": { unit: 'mls', packSizes: ['100mls','500mls', '1ltr'] },
+    "Broadguard 200 EC": { unit: 'mls', packSizes: ['100mls', '500mls', '1ltr'] },
   },
   Adjuvant: {
     Polysil: { unit: 'mls', packSizes: [25, 50, 100, 250, '1ltr'] },
@@ -110,7 +104,6 @@ const ReportPDF = ({ values }) => {
   return (
     <Document>
       <Page style={styles.body}>
-        <image src= '../public/images/logo.jpeg'style={styles.logo} />
         <Text style={styles.header}>GrowMate Kenya Limited</Text>
         <Text style={styles.header}>TSA Daily Sales Report</Text>
         <Text style={styles.header}>Date: {values.date}</Text>
@@ -140,27 +133,25 @@ const ReportPDF = ({ values }) => {
         </View>
         <Text style={styles.section}>Total Sales: {totalSales.toLocaleString('en-US', { style: 'currency', currency: 'Ksh' })}</Text>
         <Text style={styles.section}>Marketing Activities</Text>
-<Text style={styles.sectionContent}>{values.marketingActivities}</Text>
-<Text style={styles.section}>Competition Analysis</Text>
-<Text style={styles.sectionContent}>{values.competitiveAnalysis}</Text>
-<Text style={styles.section}>Issues and Challenges</Text>
-<Text style={styles.sectionContent}>{values.issues}</Text>
-<Text style={styles.section}>Upcoming Actions</Text>
-<Text style={styles.sectionContent}>{values.upcomingActions}</Text>
+        <Text style={styles.sectionContent}>{values.marketingActivities}</Text>
+        <Text style={styles.section}>Competition Analysis</Text>
+        <Text style={styles.sectionContent}>{values.competitiveAnalysis}</Text>
+        <Text style={styles.section}>Issues and Challenges</Text>
+        <Text style={styles.sectionContent}>{values.issues}</Text>
+        <Text style={styles.section}>Upcoming Actions</Text>
+        <Text style={styles.sectionContent}>{values.upcomingActions}</Text>
 
-
-<View style={styles.footer}>
-  <Text>Regards,</Text>
-  <Text>Growmate Kenya Limited</Text>
-  <Text>P.O Box 1624-20117 Naivasha</Text>
-  <Text>Phone no. : +254 719 494 454</Text>
-  <Text>E-Mail : info@growmate.ke</Text>
-</View>
- </Page>
+        <View style={styles.footer}>
+          <Text>Regards,</Text>
+          <Text>Growmate Kenya Limited</Text>
+          <Text>P.O Box 1624-20117 Naivasha</Text>
+          <Text>Phone no. : +254 719 494 454</Text>
+          <Text>E-Mail : info@growmate.ke</Text>
+        </View>
+      </Page>
     </Document>
   );
 };
-
 
 const styles = StyleSheet.create({
   body: { padding: 20 },
@@ -172,10 +163,39 @@ const styles = StyleSheet.create({
   tableCell: { padding: 5, width: '16.66%' },
 });
 
+const ProductSelector = ({ onSelectProduct }) => {
+  // Prepare options for react-select
+  const productOptions = Object.keys(categories).flatMap((category) =>
+    Object.keys(categories[category]).map((product) => ({
+      value: { category, product },
+      label: `${category} > ${product}`,
+    }))
+  );
+
+  return (
+    <div className="product-selector">
+      <label>Search Products:</label>
+      <Select
+        options={productOptions}
+        onChange={(selected) => {
+          if (selected) {
+            onSelectProduct(selected.value.category, selected.value.product);
+          }
+        }}
+        placeholder="Type to search products..."
+        isSearchable
+        className="react-select-container"
+        classNamePrefix="react-select"
+        noOptionsMessage={() => "No products found"}
+      />
+    </div>
+  );
+};
+
 const DailyReportApp = () => {
   const [reportData, setReportData] = useState(null);
   const [selectedProduct, setSelectedProduct] = useState({});
-  // const [author, setAuthor] = useState("");
+
   const calculateTotalSales = (values) => {
     let total = 0;
     Object.keys(categories).forEach((category) => {
@@ -194,47 +214,44 @@ const DailyReportApp = () => {
     setSelectedProduct({ category, product });
   };
 
- const handleShare = async (blob, author) => {
-  if (!author) {
-    alert("Please provide your name before sharing.");
-    return;
-  }
-
-  if (navigator.share && blob) {
-    const formattedDate = new Date().toLocaleDateString('en-GB').replace(/\//g, '-'); // Format: DD-MM-YYYY
-    const fileName = `${author}_SalesReport_${formattedDate}.pdf`; // Dynamic filename
-
-    const file = new File([blob], fileName, { type: "application/pdf" });
-
-    try {
-      await navigator.share({
-        files: [file],
-        title: 'Daily Sales Report',
-        text: 'Here is the daily sales report.',
-      });
-    } catch (error) {
-      console.error("Error sharing report:", error);
+  const handleShare = async (blob, author) => {
+    if (!author) {
+      alert("Please provide your name before sharing.");
+      return;
     }
-  } else {
-    alert("Sharing not supported on this browser.");
-  }
-};
 
+    if (navigator.share && blob) {
+      const formattedDate = new Date().toLocaleDateString('en-GB').replace(/\//g, '-');
+      const fileName = `${author}_SalesReport_${formattedDate}.pdf`;
 
-const sharePDF = async () => {
-  if (reportData && reportData.author) { // Check if author name is present
-    const pdfBlob = await pdf(<ReportPDF values={reportData} />).toBlob();
-    handleShare(pdfBlob, reportData.author);
-  } else {
-    alert("Please provide your name before sharing.");
-  }
-};
+      const file = new File([blob], fileName, { type: "application/pdf" });
 
+      try {
+        await navigator.share({
+          files: [file],
+          title: 'Daily Sales Report',
+          text: 'Here is the daily sales report.',
+        });
+      } catch (error) {
+        console.error("Error sharing report:", error);
+      }
+    } else {
+      alert("Sharing not supported on this browser.");
+    }
+  };
 
+  const sharePDF = async () => {
+    if (reportData && reportData.author) {
+      const pdfBlob = await pdf(<ReportPDF values={reportData} />).toBlob();
+      handleShare(pdfBlob, reportData.author);
+    } else {
+      alert("Please provide your name before sharing.");
+    }
+  };
 
   return (
     <div className="App">
-      <h1>.</h1>
+      <h1>GrowMate Kenya - Daily Sales Report</h1>
       <Formik
         initialValues={{
           date: '',
@@ -254,121 +271,132 @@ const sharePDF = async () => {
       >
         {({ values }) => (
           <Form>
-            <div>
+            <div className="form-section">
               <label>Date:</label>
-              <Field type="date" name="date" />
-              <ErrorMessage name="date" component="div" />
+              <Field type="date" name="date" className="form-input" />
+              <ErrorMessage name="date" component="div" className="error-message" />
             </div>
-            <div>
-     <label>Staff Name:</label>
-     <Field type="text" name="author" placeholder=" Enter your name.."style={{ fontStyle: 'italic' }} />
-     <ErrorMessage name="author" component="div" />
-     </div>
-            <div>
-              <label> Daily Target:</label>
-              <Field type="number" name="target"placeholder=" For example 400,000 .."style={{ fontStyle: 'italic' }} />
-              <ErrorMessage name="target" component="div" />
+
+            <div className="form-section">
+              <label>Staff Name:</label>
+              <Field 
+                type="text" 
+                name="author" 
+                placeholder="Enter your name.." 
+                className="form-input" 
+              />
+              <ErrorMessage name="author" component="div" className="error-message" />
             </div>
-            <div>
-              <h3>Select Product</h3>
-              {Object.keys(categories).map((category) => (
-                <div key={category}>
-                  <h4>{category}</h4>
-                  {Object.keys(categories[category]).map((product) => (
-                    <div key={product}>
-                      <button type="button" onClick={() => handleProductSelect(category, product)}>
-                        {product}
-                      </button>
-                    </div>
-                  ))}
-                </div>
-              ))}
+
+            <div className="form-section">
+              <label>Daily Target (Ksh):</label>
+              <Field 
+                type="number" 
+                name="target" 
+                placeholder="For example 400,000.." 
+                className="form-input" 
+              />
+              <ErrorMessage name="target" component="div" className="error-message" />
+            </div>
+
+            <div className="form-section">
+              <h3>Product Selection</h3>
+              <ProductSelector onSelectProduct={handleProductSelect} />
             </div>
 
             {selectedProduct.category && selectedProduct.product && (
-              <>
+              <div className="product-details-section">
                 <h4>Input Sales for {selectedProduct.product}</h4>
                 {categories[selectedProduct.category][selectedProduct.product].packSizes.map((size) => (
-                  <div key={size}>
+                  <div key={size} className="pack-size-row">
                     <label>
                       {size} ({categories[selectedProduct.category][selectedProduct.product].unit})
                     </label>
-                    <div>
-                      <label>Quantity:</label>
-                      <Field
-                        type="number"
-                        name={`sales_${selectedProduct.category}_${selectedProduct.product}_${size}_quantity`}
-                      />
-                      <ErrorMessage
-                        name={`sales_${selectedProduct.category}_${selectedProduct.product}_${size}_quantity`}
-                        component="div"
-                      />
-                    </div>
-                    <div>
-                      <label>Price per Unit (Ksh):</label>
-                      <Field
-                        type="number"
-                        name={`sales_${selectedProduct.category}_${selectedProduct.product}_${size}_price`}
-                      />
-                      <ErrorMessage
-                        name={`sales_${selectedProduct.category}_${selectedProduct.product}_${size}_price`}
-                        component="div"
-                      />
+                    <div className="pack-size-inputs">
+                      <div>
+                        <label>Quantity:</label>
+                        <Field
+                          type="number"
+                          name={`sales_${selectedProduct.category}_${selectedProduct.product}_${size}_quantity`}
+                          className="form-input"
+                        />
+                      </div>
+                      <div>
+                        <label>Price per Unit (Ksh):</label>
+                        <Field
+                          type="number"
+                          name={`sales_${selectedProduct.category}_${selectedProduct.product}_${size}_price`}
+                          className="form-input"
+                        />
+                      </div>
                     </div>
                   </div>
                 ))}
-              </>
+              </div>
             )}
 
-            <div>
+            <div className="form-section">
               <h3>Other Reports</h3>
-              <div>
+              <div className="report-field">
                 <label>Marketing Activities:</label>
-                <Field as="textarea" name="marketingActivities" placeholder="List marketing activities engaged in.."style={{ fontStyle: 'italic' }} />
-                <ErrorMessage name="marketingActivities" component="div" />
+                <Field 
+                  as="textarea" 
+                  name="marketingActivities" 
+                  placeholder="List marketing activities engaged in.." 
+                  className="form-textarea" 
+                />
+                <ErrorMessage name="marketingActivities" component="div" className="error-message" />
               </div>
-              <div>
+
+              <div className="report-field">
                 <label>Competition Analysis:</label>
-                <Field as="textarea" name="competitiveAnalysis" placeholder="List competition activities.."style={{ fontStyle: 'italic' }} />
-                <ErrorMessage name="competitiveAnalysis" component="div" />
+                <Field 
+                  as="textarea" 
+                  name="competitiveAnalysis" 
+                  placeholder="List competition activities.." 
+                  className="form-textarea" 
+                />
+                <ErrorMessage name="competitiveAnalysis" component="div" className="error-message" />
               </div>
-              <div>
+
+              <div className="report-field">
                 <label>Challenges Faced:</label>
-                <Field as="textarea" name="issues"placeholder="Outline challanges faced.."style={{ fontStyle: 'italic' }} />
-                <ErrorMessage name="issues" component="div" />
+                <Field 
+                  as="textarea" 
+                  name="issues" 
+                  placeholder="Outline challenges faced.." 
+                  className="form-textarea" 
+                />
+                <ErrorMessage name="issues" component="div" className="error-message" />
               </div>
-              <div>
+
+              <div className="report-field">
                 <label>Upcoming Actions:</label>
-                <Field as="textarea" name="upcomingActions" placeholder="Following day actions/activities.." style={{ fontStyle: 'italic' }}/>
-                <ErrorMessage name="upcomingActions" component="div" />
+                <Field 
+                  as="textarea" 
+                  name="upcomingActions" 
+                  placeholder="Following day actions/activities.." 
+                  className="form-textarea" 
+                />
+                <ErrorMessage name="upcomingActions" component="div" className="error-message" />
               </div>
             </div>
 
-            <button type="submit">Generate Report</button>
-      {reportData && (
-        <>
-          
-          <FontAwesomeIcon
-            icon={faShareAlt}
-            onClick={() => sharePDF(values)}
-            style={{
-              cursor: 'pointer',
-              fontSize: '28px',
-              marginLeft: '10px',
-              color: '#4CAF50', 
-              transition: 'transform 0.3s ease, color 0.3s ease',
-            }}
-            title="Share Report"
-            onMouseEnter={(e) => (e.currentTarget.style.color = '#2E7D32')} 
-            onMouseLeave={(e) => (e.currentTarget.style.color = '#4CAF50')}
-            onMouseDown={(e) => (e.currentTarget.style.transform = 'scale(0.9)')} 
-            onMouseUp={(e) => (e.currentTarget.style.transform = 'scale(1)')}
-          />
-        </>
-      )}
-    </Form>
-  )}
-</Formik>
+            <div className="form-actions">
+              <button type="submit" className="submit-button">Generate Report</button>
+              
+              {reportData && (
+                <FontAwesomeIcon
+                  icon={faShareAlt}
+                  onClick={() => sharePDF(values)}
+                  className="share-icon"
+                  title="Share Report"
+                />
+              )}
+            </div>
+          </Form>
+        )}
+      </Formik>
     </div>
   );
 };
