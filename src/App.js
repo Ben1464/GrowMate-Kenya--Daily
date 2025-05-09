@@ -251,7 +251,7 @@ const DailyReportApp = () => {
 
   return (
     <div className="App">
-     
+      <h1>.</h1>
       <Formik
         initialValues={{
           date: '',
