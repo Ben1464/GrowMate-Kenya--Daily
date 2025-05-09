@@ -251,7 +251,7 @@ const DailyReportApp = () => {
 
   return (
     <div className="App">
-      <h1>GrowMate Kenya - Daily Sales Report</h1>
+     
       <Formik
         initialValues={{
           date: '',
