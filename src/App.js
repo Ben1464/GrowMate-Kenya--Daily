@@ -142,6 +142,9 @@ const ReportPDF = ({ values }) => {
         <Text style={styles.section}>Upcoming Actions</Text>
         <Text style={styles.sectionContent}>{values.upcomingActions}</Text>
 
+
+        
+
         <View style={styles.footer}>
           <Text>Regards,</Text>
           <Text>Growmate Kenya Limited</Text>
