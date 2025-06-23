@@ -14,6 +14,7 @@ const categories = {
     "Growprid 700 WDG": { unit: 'gms', packSizes: [25, 50, '1kg'] },
     "Spirometer 500 SC": { unit: 'mls', packSizes: [50, 100, '1ltr'] },
     "Emagurd 57 ME": { unit: 'mls', packSizes: [25, 50, 100, 250, '1ltr'] },
+    "Timecarb 340 SC": { unit: 'mls', packSizes: [25, 50, 100, 250, '1ltr'] },
   },
   Fungicides: {
     "Pyraccop 400 SC": { unit: 'mls', packSizes: [50, 100, 250, '1ltr'] },
