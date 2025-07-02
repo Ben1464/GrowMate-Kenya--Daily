@@ -34,6 +34,7 @@ const categories = {
     "Maizeron 300 SE": { unit: 'mls', packSizes: ['1ltr'] },
     "Pendistar 450 CS": { unit: 'mls', packSizes: ['1ltr'] },
     "Broadguard 200 EC": { unit: 'mls', packSizes: ['100mls', '500mls', '1ltr'] },
+    "Glufoguard 200 SL": { unit: 'mls', packSizes: ['1ltr'] },
   },
   Adjuvant: {
     Polysil: { unit: 'mls', packSizes: [25, 50, 100, 250, '1ltr'] },
