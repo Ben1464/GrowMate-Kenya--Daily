@@ -15,6 +15,9 @@ const categories = {
     "Spirometer 500 SC": { unit: 'mls', packSizes: [50, 100, '1ltr'] },
     "Emagurd 57 ME": { unit: 'mls', packSizes: [25, 50, 100, 250, '1ltr'] },
     "Timecarb 340 SC": { unit: 'mls', packSizes: [25, 50, 100, 250, '1ltr'] },
+    "Hexaguard 100 EC": { unit: 'mls', packSizes: ['1ltr'] },
+    
+
   },
   Fungicides: {
     "Pyraccop 400 SC": { unit: 'mls', packSizes: [50, 100, 250, '1ltr'] },
@@ -29,12 +32,16 @@ const categories = {
     Calcibora: { unit: 'mls', packSizes: [250, 500, '1ltr'] },
     Boroking: { unit: 'mls', packSizes: [250, 500, '1ltr'] },
     Growspeed: { unit: 'mls', packSizes: [100, 250, 500, '1ltr'] },
+    Softguard: { unit: 'mls', packSizes: ['1ltr'] },
+
   },
   Herbicides: {
     "Maizeron 300 SE": { unit: 'mls', packSizes: ['1ltr'] },
     "Pendistar 450 CS": { unit: 'mls', packSizes: ['1ltr'] },
     "Broadguard 200 EC": { unit: 'mls', packSizes: ['100mls', '500mls', '1ltr'] },
     "Glufoguard 200 SL": { unit: 'mls', packSizes: ['1ltr'] },
+    "Bentagrow 480 SL": { unit: 'mls', packSizes: ['250mls', '500mls', '1ltr'] },
+    "Glysate 620 SL": { unit: 'mls', packSizes: [ '500mls', '1ltr'] },
   },
   Adjuvant: {
     Polysil: { unit: 'mls', packSizes: [25, 50, 100, 250, '1ltr'] },
